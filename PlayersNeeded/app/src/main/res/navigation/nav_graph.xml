@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeScreenFragment">
+
+    <fragment
+        android:id="@+id/homeScreenFragment"
+        android:name="ro.pub.acs.playersneeded.home.HomeScreenFragment"
+        android:label="HomeScreenFragment"
+        tools:layout="@layout/fragment_home_screen">
+        <action
+            android:id="@+id/action_homeScreenFragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/logInFragment"
+        android:name="ro.pub.acs.playersneeded.login.LogInFragment"
+        android:label="LogInFragment"
+        tools:layout="@layout/fragment_log_in"/>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="ro.pub.acs.playersneeded.signup.SignUpFragment"
+        android:label="SignUpFragment"
+        tools:layout="@layout/fragment_sign_up"/>
+</navigation>
