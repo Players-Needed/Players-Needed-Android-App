@@ -10,8 +10,10 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.NavHostFragment
 import ro.pub.acs.playersneeded.R
 import ro.pub.acs.playersneeded.databinding.FragmentSignUpBinding
+import ro.pub.acs.playersneeded.login.LogInFragmentDirections
 
 class SignUpFragment : Fragment() {
 
@@ -52,6 +54,11 @@ class SignUpFragment : Fragment() {
 
         val signUpResult = viewModel.requestSignUp(email, username, password, firstName, lastName)
         setErrorLogIn(signUpResult)
+
+        if (signUpResult) {
+            val action = SignUpFragmentDirections.actionSignUpFragmentToUserHomeScreenFragment()
+            NavHostFragment.findNavController(this).navigate(action)
+        }
 
         hideSoftKeyboard(view)
     }

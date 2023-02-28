@@ -10,9 +10,11 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.NavHostFragment
 import ro.pub.acs.playersneeded.MainActivity
 import ro.pub.acs.playersneeded.R
 import ro.pub.acs.playersneeded.databinding.FragmentLogInBinding
+import ro.pub.acs.playersneeded.home.HomeScreenFragmentDirections
 
 
 class LogInFragment : Fragment() {
@@ -43,14 +45,29 @@ class LogInFragment : Fragment() {
         binding.logInConstraintLayout.setOnClickListener{
             hideSoftKeyboard(it)
         }
+
+        viewModel.logInResult.observe(viewLifecycleOwner) { logIn ->
+            onLoggedIn(logIn)
+        }
+    }
+
+    private fun onLoggedIn(logIn: Boolean) {
+        if (logIn) {
+            val token = viewModel.token.value
+            viewModel.reinitialize()
+
+            val action =
+                LogInFragmentDirections.actionLogInFragmentToUserHomeScreenFragment(token.toString())
+            NavHostFragment.findNavController(this).navigate(action)
+        } else {
+            setErrorLogIn(true)
+        }
     }
 
     private fun onLogInButtonClicked(view: View) {
         val username = binding.logInTextInputEditTextUsername.text.toString()
         val password = binding.logInTextInputEditTextPassword.text.toString()
-
-        val logInResult = viewModel.requestLogIn(username, password)
-        setErrorLogIn(logInResult)
+        viewModel.requestLogIn(username, password)
 
         hideSoftKeyboard(view)
     }

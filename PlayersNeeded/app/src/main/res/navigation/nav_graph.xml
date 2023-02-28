@@ -21,10 +21,39 @@
         android:id="@+id/logInFragment"
         android:name="ro.pub.acs.playersneeded.login.LogInFragment"
         android:label="LogInFragment"
-        tools:layout="@layout/fragment_log_in"/>
+        tools:layout="@layout/fragment_log_in">
+        <action
+            android:id="@+id/action_logInFragment_to_userHomeScreenFragment"
+            app:destination="@id/userHomeScreenFragment" />
+    </fragment>
     <fragment
         android:id="@+id/signUpFragment"
         android:name="ro.pub.acs.playersneeded.signup.SignUpFragment"
         android:label="SignUpFragment"
-        tools:layout="@layout/fragment_sign_up"/>
+        tools:layout="@layout/fragment_sign_up">
+        <action
+            android:id="@+id/action_signUpFragment_to_userHomeScreenFragment"
+            app:destination="@id/userHomeScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userHomeScreenFragment"
+        android:name="ro.pub.acs.playersneeded.user.UserHomeScreenFragment"
+        android:label="UserHomeScreenFragment"
+        tools:layout="@layout/fragment_user_home_screen">
+        <action
+            android:id="@+id/action_userHomeScreenFragment_to_createRoomFragment"
+            app:destination="@id/createRoomFragment" />
+        <argument
+            android:name="token"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/createRoomFragment"
+        android:name="ro.pub.acs.playersneeded.roomcreation.CreateRoomFragment"
+        android:label="CreateRoomFragment"
+        tools:layout="@layout/fragment_create_room">
+        <argument
+            android:name="token"
+            app:argType="string" />
+    </fragment>
 </navigation>

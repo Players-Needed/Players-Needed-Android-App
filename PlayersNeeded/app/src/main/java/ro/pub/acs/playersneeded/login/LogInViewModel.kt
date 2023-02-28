@@ -17,14 +17,16 @@ import ro.pub.acs.playersneeded.api.PlayersNeededApi
 
 class LogInViewModel : ViewModel() {
 
+    private var _logInResult = MutableLiveData<Boolean>()
+    val logInResult: LiveData<Boolean>
+        get() = _logInResult
+
     private var _token = MutableLiveData<String>()
     val token: LiveData<String>
         get() = _token
 
-    fun requestLogIn(username: String, password: String): Boolean {
+    fun requestLogIn(username: String, password: String) {
         Log.d("LogInFragment", "username $username password $password")
-
-        var result: Boolean = false
         val jsonObject = JSONObject()
 
         jsonObject.put("email_username", username)
@@ -53,16 +55,19 @@ class LogInViewModel : ViewModel() {
                     Log.i("LogInViewModel", "LogIn successful $tokenResponse")
 
                     _token.value = tokenResponse
-                    result = true
-                }
-                else {
+                    _logInResult.value = true
+                } else {
                     Log.i("LogInViewModel", "LogIn not successful")
 
                     _token.value = ""
+                    _logInResult.value = false
                 }
             }
         }
+    }
 
-        return result
+    fun reinitialize() {
+        _logInResult = MutableLiveData()
+        _token = MutableLiveData()
     }
 }

@@ -21,4 +21,20 @@
     <string name="lastNameSignUp">Last Name</string>
     <string name="errorSignUp">Sign Up Not Successful</string>
     <string name="successfulSignUp">Sign Up Successful</string>
+
+    <!-- User Home Screen -->
+    <string name="createRoomButton">Create Room</string>
+    <string name="joinRoomButton">Join Room</string>
+    <string name="yourRoomsButton">Your Rooms</string>
+
+    <!-- Create Room Screen -->
+    <string name="createRoomMessage">Create a Players Room</string>
+    <string name="sport">Sport</string>
+    <string-array name="languages">
+        <item>C</item>
+        <item>C++</item>
+        <item>Java</item>
+        <item>JavaScript</item>
+        <item>VisualBasic</item>
+    </string-array>
 </resources>
