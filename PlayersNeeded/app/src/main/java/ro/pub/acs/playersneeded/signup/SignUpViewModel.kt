@@ -21,11 +21,14 @@ class SignUpViewModel : ViewModel() {
     val token: LiveData<String>
         get() = _token
 
+    private var _signUpResult = MutableLiveData<Boolean>()
+    val signUpResult: LiveData<Boolean>
+        get() = _signUpResult
+
     fun requestSignUp(email: String, username: String, password: String,
-                      firstName: String, lastName: String): Boolean {
+                      firstName: String, lastName: String) {
         Log.d("SignUpFragment", "username $username password $password")
 
-        var result: Boolean = false
         val jsonObject = JSONObject()
 
         jsonObject.put("email", email)
@@ -57,16 +60,20 @@ class SignUpViewModel : ViewModel() {
                     Log.i("SignUpViewModel", "SignUp successful $tokenResponse")
 
                     _token.value = tokenResponse
-                    result = true
+                    _signUpResult.value = true
                 }
                 else {
                     Log.i("SignUpViewModel", "SignUp not successful")
 
                     _token.value = ""
+                    _signUpResult.value = false
                 }
             }
         }
+    }
 
-        return result
+    fun reinitialize() {
+        _signUpResult = MutableLiveData()
+        _token = MutableLiveData()
     }
 }

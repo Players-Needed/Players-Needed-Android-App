@@ -32,8 +32,8 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginTop="60dp"
             android:contentDescription="@string/application_logo"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,17 +41,311 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/sports" />
 
-        <Spinner
-            android:id="@+id/spinnerSport"
-            android:layout_width="229dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="28dp"
-            android:background="@drawable/round_corner_view"
-            android:layout_gravity="center"
-            android:spinnerMode="dropdown"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/createRoomTextInputLayoutRoomName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/roboto_medium"
+            app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewRoomNameLabel"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCreateRoom">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/createRoomTextInputEditTextRoomName"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:background="@drawable/round_corner_view"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_horizontal"
+                android:text="@string/blank"
+                android:textColor="#ffffff" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textViewRoomNameLabel"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/round_corner_view"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/roomName"
+            android:gravity="center_vertical|center_horizontal"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/createRoomTextInputLayoutRoomName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewCreateRoom" />
+
+        <Spinner
+            android:id="@+id/spinnerSport"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/round_corner_view"
+            android:dropDownSelector="@android:drawable/alert_dark_frame"
+            android:spinnerMode="dropdown"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewSportTypeLabel"
+            app:layout_constraintTop_toBottomOf="@+id/createRoomTextInputLayoutRoomName"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/textViewSportTypeLabel"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/round_corner_view"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/roomSport"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/spinnerSport"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewRoomNameLabel" />
+
+        <ImageView
+            android:id="@+id/imageViewArrowDropDown"
+            android:layout_width="46dp"
+            android:layout_height="49dp"
+            android:contentDescription="@string/sport_dropdown_arrow_description"
+            app:layout_constraintEnd_toEndOf="@+id/spinnerSport"
+            app:layout_constraintTop_toTopOf="@+id/spinnerSport"
+            app:srcCompat="@drawable/baseline_arrow_drop_down_24"
+            tools:ignore="ImageContrastCheck" />
+
+        <TextView
+            android:id="@+id/textViewDate"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/round_corner_view"
+            android:gravity="center"
+            android:text="@string/defaultDate"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewRoomDateLabel"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerSport" />
+
+        <TextView
+            android:id="@+id/textViewRoomDateLabel"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/round_corner_view"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/roomDate"
+            android:gravity="center_vertical|center_horizontal"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/textViewDate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSportTypeLabel" />
+
+        <TextView
+            android:id="@+id/textViewTime"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/round_corner_view"
+            android:gravity="center"
+            android:text="@string/defaultHour"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewRoomTimeLabel"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDate" />
+
+        <TextView
+            android:id="@+id/textViewRoomTimeLabel"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/round_corner_view"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/roomTime"
+            android:gravity="center_vertical|center_horizontal"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf = "@+id/textViewTime"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewRoomDateLabel" />
+
+        <Spinner
+            android:id="@+id/spinnerSkillLevel"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/round_corner_view"
+            android:dropDownSelector="@android:drawable/alert_dark_frame"
+            android:spinnerMode="dropdown"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewRoomSkillLabel"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTime"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/textViewRoomSkillLabel"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/round_corner_view"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/roomSkill"
+            android:gravity="center_vertical|center_horizontal"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf = "@+id/spinnerSkillLevel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewRoomTimeLabel" />
+
+        <ImageView
+            android:id="@+id/imageViewArrowDropDownSkillLevel"
+            android:layout_width="46dp"
+            android:layout_height="49dp"
+            android:contentDescription="@string/sport_dropdown_arrow_description"
+            app:layout_constraintEnd_toEndOf="@+id/spinnerSkillLevel"
+            app:layout_constraintTop_toTopOf="@+id/spinnerSkillLevel"
+            app:srcCompat="@drawable/baseline_arrow_drop_down_24"
+            tools:ignore="ImageContrastCheck" />
+
+        <TextView
+            android:id="@+id/textViewLocation"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/round_corner_view"
+            android:gravity="center"
+            android:text="@string/blank"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewRoomLocationLabel"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerSkillLevel" />
+
+        <TextView
+            android:id="@+id/textViewRoomLocationLabel"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/round_corner_view"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/roomLocation"
+            android:gravity="center_vertical|center_horizontal"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/textViewLocation"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewRoomSkillLabel" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/createRoomTextInputLayoutRoomNumberPlayers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/roboto_medium"
+            app:hintAnimationEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewRoomPlayerNumberLabel"
+            app:layout_constraintTop_toBottomOf="@+id/textViewLocation">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/createRoomTextInputEditTextRoomNumberPlayers"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:background="@drawable/round_corner_view"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_horizontal"
+                android:text="@string/blank"
+                android:textColor="#ffffff" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textViewRoomPlayerNumberLabel"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/round_corner_view"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/roomNumber"
+            android:gravity="center_vertical|center_horizontal"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/createRoomTextInputLayoutRoomNumberPlayers"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewRoomLocationLabel" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/createRoomTextInputLayoutRoomExtraDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/roboto_medium"
+            app:hintAnimationEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewRoomExtraDetailsLabel"
+            app:layout_constraintTop_toBottomOf="@+id/createRoomTextInputLayoutRoomNumberPlayers">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/createRoomTextInputEditTextRoomExtraDetails"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:background="@drawable/round_corner_view"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_horizontal"
+                android:text="@string/blank"
+                android:textColor="#ffffff" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textViewRoomExtraDetailsLabel"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/round_corner_view"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/roomExtraDetails"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/createRoomTextInputLayoutRoomExtraDetails"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewRoomPlayerNumberLabel" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

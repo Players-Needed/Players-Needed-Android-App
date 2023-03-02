@@ -1,5 +1,6 @@
 package ro.pub.acs.playersneeded.signup
 
+import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,6 +44,23 @@ class SignUpFragment : Fragment() {
         binding.signUpConstraintLayout.setOnClickListener{
             hideSoftKeyboard(it)
         }
+
+        viewModel.signUpResult.observe(viewLifecycleOwner) {signUp ->
+            onSignedUp(signUp)
+        }
+    }
+
+    private fun onSignedUp(signUp: Boolean) {
+        if (signUp) {
+            val token = viewModel.token.value
+            viewModel.reinitialize()
+
+            val action = SignUpFragmentDirections
+                .actionSignUpFragmentToUserHomeScreenFragment(token.toString())
+            NavHostFragment.findNavController(this).navigate(action)
+        } else {
+            setErrorLogIn(true)
+        }
     }
 
     private fun onSignUpButtonClicked(view: View) {
@@ -53,12 +71,6 @@ class SignUpFragment : Fragment() {
         val lastName = binding.signUpTextInputEditTextLastName.text.toString()
 
         val signUpResult = viewModel.requestSignUp(email, username, password, firstName, lastName)
-        setErrorLogIn(signUpResult)
-
-        if (signUpResult) {
-            val action = SignUpFragmentDirections.actionSignUpFragmentToUserHomeScreenFragment()
-            NavHostFragment.findNavController(this).navigate(action)
-        }
 
         hideSoftKeyboard(view)
     }

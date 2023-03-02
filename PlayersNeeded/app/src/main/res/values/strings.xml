@@ -30,11 +30,30 @@
     <!-- Create Room Screen -->
     <string name="createRoomMessage">Create a Players Room</string>
     <string name="sport">Sport</string>
-    <string-array name="languages">
-        <item>C</item>
-        <item>C++</item>
-        <item>Java</item>
-        <item>JavaScript</item>
-        <item>VisualBasic</item>
+    <string name="sport_dropdown_arrow_description">Sport Dropdown Arrow</string>
+    <string name="defaultDate">01/01/1970</string>
+    <string name="defaultHour">12:00 PM</string>
+    <string name="roomName">Room Name:</string>
+    <string name="roomSport">Sport:</string>
+    <string name="roomDate">Date:</string>
+    <string name="roomTime">Time:</string>
+    <string name="roomNumber">No. Players:</string>
+    <string name="roomLocation">Location:</string>
+    <string name="roomExtraDetails">Details:</string>
+    <string name="roomSkill">Skill Level:</string>
+    <string name="blank">-</string>
+    <string-array name="sports">
+        <item>Sport</item>
+        <item>Football</item>
+        <item>Tennis</item>
+        <item>Jogging</item>
+        <item>Gym</item>
+        <item>Volley</item>
+    </string-array>
+    <string-array name="skills">
+        <item>Skill Level</item>
+        <item>Novice</item>
+        <item>Medium</item>
+        <item>Advanced</item>
     </string-array>
 </resources>
