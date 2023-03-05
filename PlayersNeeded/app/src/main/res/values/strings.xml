@@ -56,4 +56,8 @@
         <item>Medium</item>
         <item>Advanced</item>
     </string-array>
+    <string name="title_activity_maps">MapsActivity</string>
+
+    <!-- Location Dialog -->
+    <string name="chooseLocationButton">Choose Location</string>
 </resources>

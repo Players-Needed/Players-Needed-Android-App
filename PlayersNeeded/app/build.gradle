@@ -33,6 +33,7 @@ android {
     }
     buildFeatures {
         dataBinding true
+        viewBinding true
     }
 }
 
@@ -66,4 +67,7 @@ dependencies {
 
     // Coroutines to make the HTTP requests asynchronous(In the background thread)
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+
+    // map
+    implementation 'org.osmdroid:osmdroid-android:6.0.3'
 }

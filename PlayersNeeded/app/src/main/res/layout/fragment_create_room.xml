@@ -74,8 +74,8 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/round_corner_view"
             android:fontFamily="@font/roboto_medium"
-            android:text="@string/roomName"
             android:gravity="center_vertical|center_horizontal"
+            android:text="@string/roomName"
             android:textColor="#ffffff"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/createRoomTextInputLayoutRoomName"
@@ -150,8 +150,8 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/round_corner_view"
             android:fontFamily="@font/roboto_medium"
-            android:text="@string/roomDate"
             android:gravity="center_vertical|center_horizontal"
+            android:text="@string/roomDate"
             android:textColor="#ffffff"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/textViewDate"
@@ -182,11 +182,11 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/round_corner_view"
             android:fontFamily="@font/roboto_medium"
-            android:text="@string/roomTime"
             android:gravity="center_vertical|center_horizontal"
+            android:text="@string/roomTime"
             android:textColor="#ffffff"
             android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf = "@+id/textViewTime"
+            app:layout_constraintEnd_toStartOf="@+id/textViewTime"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewRoomDateLabel" />
 
@@ -215,11 +215,11 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/round_corner_view"
             android:fontFamily="@font/roboto_medium"
-            android:text="@string/roomSkill"
             android:gravity="center_vertical|center_horizontal"
+            android:text="@string/roomSkill"
             android:textColor="#ffffff"
             android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf = "@+id/spinnerSkillLevel"
+            app:layout_constraintEnd_toStartOf="@+id/spinnerSkillLevel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewRoomTimeLabel" />
 
@@ -257,8 +257,8 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/round_corner_view"
             android:fontFamily="@font/roboto_medium"
-            android:text="@string/roomLocation"
             android:gravity="center_vertical|center_horizontal"
+            android:text="@string/roomLocation"
             android:textColor="#ffffff"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/textViewLocation"
@@ -298,38 +298,55 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/round_corner_view"
             android:fontFamily="@font/roboto_medium"
-            android:text="@string/roomNumber"
             android:gravity="center_vertical|center_horizontal"
+            android:text="@string/roomNumber"
             android:textColor="#ffffff"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/createRoomTextInputLayoutRoomNumberPlayers"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewRoomLocationLabel" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/createRoomTextInputLayoutRoomExtraDetails"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/createRoomTextInputLayoutRoomExtraDetails"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:layout_marginEnd="20dp"-->
+<!--            android:fontFamily="@font/roboto_medium"-->
+<!--            app:hintAnimationEnabled="false"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/textViewRoomExtraDetailsLabel"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/createRoomTextInputLayoutRoomNumberPlayers">-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/createRoomTextInputEditTextRoomExtraDetails"-->
+<!--                android:layout_width="200dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:background="@drawable/round_corner_view"-->
+<!--                android:fontFamily="@font/roboto_medium"-->
+<!--                android:gravity="center_horizontal"-->
+<!--                android:text="@string/blank"-->
+<!--                android:textColor="#ffffff" />-->
+
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+        <EditText
+            android:id="@+id/createRoomEditTextRoomExtraDetails"
             android:layout_marginStart="10dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
-            android:fontFamily="@font/roboto_medium"
-            app:hintAnimationEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textViewRoomExtraDetailsLabel"
-            app:layout_constraintTop_toBottomOf="@+id/createRoomTextInputLayoutRoomNumberPlayers">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/createRoomTextInputEditTextRoomExtraDetails"
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:background="@drawable/round_corner_view"
-                android:fontFamily="@font/roboto_medium"
-                android:gravity="center_horizontal"
-                android:text="@string/blank"
-                android:textColor="#ffffff" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintTop_toBottomOf="@+id/createRoomTextInputLayoutRoomNumberPlayers"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:background="@drawable/round_corner_view"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center_horizontal|center_vertical"
+            android:textColor="#ffffff"
+            android:autofillHints="autofill_hints"
+            android:hint="Extra Details"/>
 
         <TextView
             android:id="@+id/textViewRoomExtraDetailsLabel"
@@ -343,7 +360,7 @@
             android:text="@string/roomExtraDetails"
             android:textColor="#ffffff"
             android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/createRoomTextInputLayoutRoomExtraDetails"
+            app:layout_constraintEnd_toStartOf="@+id/createRoomEditTextRoomExtraDetails"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewRoomPlayerNumberLabel" />
 

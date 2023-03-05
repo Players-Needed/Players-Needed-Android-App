@@ -2,21 +2,34 @@ package ro.pub.acs.playersneeded.roomcreation
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.app.Dialog
 import android.app.TimePickerDialog
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.preference.PreferenceManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.adapters.CalendarViewBindingAdapter.setDate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import org.osmdroid.api.IMapController
+import org.osmdroid.config.Configuration
+import org.osmdroid.events.MapEventsReceiver
+import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase
+import org.osmdroid.util.GeoPoint
+import org.osmdroid.util.MapTileIndex
+import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.MapEventsOverlay
+import org.osmdroid.views.overlay.Marker
+import org.osmdroid.views.overlay.Overlay
 import ro.pub.acs.playersneeded.R
 import ro.pub.acs.playersneeded.databinding.FragmentCreateRoomBinding
 import java.text.SimpleDateFormat
@@ -35,7 +48,7 @@ class CreateRoomFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_create_room, container,
+            inflater, ro.pub.acs.playersneeded.R.layout.fragment_create_room, container,
             false)
 
         viewModelFactory = CreateRoomViewModelFactory(
@@ -44,9 +57,9 @@ class CreateRoomFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)[CreateRoomViewModel::class.java]
 
         /* set up the dropdown for selecting the sport type */
-        val listSport = ArrayList<String>(listOf(*resources.getStringArray(R.array.sports)))
+        val listSport = ArrayList<String>(listOf(*resources.getStringArray(ro.pub.acs.playersneeded.R.array.sports)))
         val adapterSport: ArrayAdapter<String> = object: ArrayAdapter<String>(
-            requireContext(), R.drawable.spinner_item, listSport) {
+            requireContext(), ro.pub.acs.playersneeded.R.drawable.spinner_item, listSport) {
             override fun isEnabled(position: Int): Boolean {
                 return position != 0
             }
@@ -69,9 +82,9 @@ class CreateRoomFragment : Fragment() {
         binding.spinnerSport.adapter = adapterSport
 
         /* set up the dropdown for selecting the skill level */
-        val listSkill = ArrayList<String>(listOf(*resources.getStringArray(R.array.skills)))
+        val listSkill = ArrayList<String>(listOf(*resources.getStringArray(ro.pub.acs.playersneeded.R.array.skills)))
         val adapterSkill: ArrayAdapter<String> = object: ArrayAdapter<String>(
-            requireContext(), R.drawable.spinner_item, listSkill) {
+            requireContext(), ro.pub.acs.playersneeded.R.drawable.spinner_item, listSkill) {
             override fun isEnabled(position: Int): Boolean {
                 return position != 0
             }
@@ -130,6 +143,106 @@ class CreateRoomFragment : Fragment() {
         binding.textViewTime.setOnClickListener {
             setTime(it, hour, minute)
         }
+
+        val dialog = activity?.let { Dialog(it) }
+
+        binding.textViewLocation.setOnClickListener {
+            setLocation(it, dialog)
+        }
+    }
+
+    private fun setLocation(view: View, dialog: Dialog?) {
+        dialog?.setContentView(R.layout.fragment_map_view);
+        if (dialog != null) {
+            dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        };
+        dialog?.setCancelable(false)
+
+        val ctx: Context? = context
+        Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx))
+        val map = dialog?.findViewById(R.id.map) as MapView
+        map.tileProvider.clearTileCache()
+        Configuration.getInstance().cacheMapTileCount = 12.toShort()
+        Configuration.getInstance().cacheMapTileOvershoot = 12.toShort()
+        map.setTileSource(object : OnlineTileSourceBase(
+            "",
+            1,
+            20,
+            512,
+            ".png",
+            arrayOf("https://a.tile.openstreetmap.org/")
+        ) {
+            override fun getTileURLString(pMapTileIndex: Long): String {
+                return (baseUrl
+                        + MapTileIndex.getZoom(pMapTileIndex)
+                        + "/" + MapTileIndex.getX(pMapTileIndex)
+                        + "/" + MapTileIndex.getY(pMapTileIndex)
+                        + mImageFilenameEnding)
+            }
+        })
+
+        map.setMultiTouchControls(true)
+        val mapController: IMapController = map.controller
+        val startPoint: GeoPoint = GeoPoint(44.44891, 26.05214)
+        mapController.setZoom(11.0)
+        mapController.setCenter(startPoint)
+        map.invalidate()
+
+        val setLocationButton = dialog.findViewById(R.id.addLocationButton) as Button
+
+        setLocationButton.setOnClickListener {
+            writeLocation(map, dialog)
+        }
+
+        viewModel.lat.value?.let { viewModel.lon.value?.let { it1 -> GeoPoint(it, it1) } }
+            ?.let { createMarker(map, it) }
+
+        dialog.show()
+
+        val mReceive: MapEventsReceiver = object : MapEventsReceiver {
+            override fun singleTapConfirmedHelper(p: GeoPoint): Boolean {
+                createMarker(map, p)
+                return false
+            }
+
+            override fun longPressHelper(p: GeoPoint): Boolean {
+                //do whatever you need here
+                return false
+            }
+        }
+        val evOverlay = MapEventsOverlay(mReceive)
+        map.overlays.add(evOverlay)
+    }
+
+    private fun writeLocation(map: MapView, dialog: Dialog) {
+        viewModel.lat.value = (map.overlays[map.overlays.size - 1] as Marker).position.latitude
+        viewModel.lon.value = (map.overlays[map.overlays.size - 1] as Marker).position.longitude
+
+        Log.i("Create Room", viewModel.lat.value.toString() + " " +
+                viewModel.lon.value.toString())
+        dialog.hide()
+    }
+
+    private fun createMarker(map: MapView, p: GeoPoint) {
+        val myMarker = Marker(map)
+
+        for (i in 0 until map.overlays.size) {
+            if (i >= map.overlays.size)
+                break
+            val overlay: Overlay = map.overlays[i]
+            if (overlay is Marker && (overlay as Marker).id == "selectedLocation") {
+                map.overlays.remove(overlay)
+            }
+        }
+        map.invalidate()
+
+        myMarker.position = GeoPoint(p.latitude, p.longitude)
+        myMarker.setAnchor((Marker.ANCHOR_TOP + 0.25).toFloat(), (Marker.ANCHOR_TOP + 0.25)
+            .toFloat())
+        myMarker.id = "selectedLocation"
+        myMarker.isDraggable = true
+        map.overlays.add(myMarker)
+        map.invalidate()
     }
 
     @SuppressLint("SetTextI18n")
