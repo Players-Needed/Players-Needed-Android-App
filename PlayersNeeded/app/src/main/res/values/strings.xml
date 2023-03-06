@@ -33,15 +33,15 @@
     <string name="sport_dropdown_arrow_description">Sport Dropdown Arrow</string>
     <string name="defaultDate">01/01/1970</string>
     <string name="defaultHour">12:00 PM</string>
-    <string name="roomName">Room Name:</string>
-    <string name="roomSport">Sport:</string>
-    <string name="roomDate">Date:</string>
-    <string name="roomTime">Time:</string>
-    <string name="roomNumber">No. Players:</string>
-    <string name="roomLocation">Location:</string>
-    <string name="roomExtraDetails">Details:</string>
-    <string name="roomSkill">Skill Level:</string>
-    <string name="blank">-</string>
+    <string name="roomName">Room Name</string>
+    <string name="roomSport">Sport</string>
+    <string name="roomDate">Date</string>
+    <string name="roomTime">Time</string>
+    <string name="roomNumber">No. Players</string>
+    <string name="roomLocation">Location</string>
+    <string name="roomExtraDetails">Details</string>
+    <string name="roomSkill">Skill Level</string>
+    <string name="roomAddress">Address</string>
     <string-array name="sports">
         <item>Sport</item>
         <item>Football</item>
