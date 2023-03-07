@@ -6,7 +6,10 @@ import android.app.Dialog
 import android.app.TimePickerDialog
 import android.content.Context
 import android.graphics.Color
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
+import android.os.StrictMode
 import android.preference.PreferenceManager
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,6 +21,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.adapters.CalendarViewBindingAdapter.setDate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import org.osmdroid.api.IMapController
@@ -40,6 +44,15 @@ class CreateRoomFragment : Fragment() {
     private lateinit var viewModel: CreateRoomViewModel
     private lateinit var viewModelFactory: CreateRoomViewModelFactory
     private lateinit var binding: FragmentCreateRoomBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+
+        Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences
+            (context))
+    }
 
     @SuppressLint("ResourceType")
     override fun onCreateView(
@@ -149,6 +162,10 @@ class CreateRoomFragment : Fragment() {
         binding.textViewLocation.setOnClickListener {
             setLocation(it, dialog)
         }
+
+        binding.createRoomButton.setOnClickListener {
+            viewModel.sendRoomDetails()
+        }
     }
 
     private fun setLocation(view: View, dialog: Dialog?) {
@@ -214,9 +231,35 @@ class CreateRoomFragment : Fragment() {
         map.overlays.add(evOverlay)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun writeLocation(map: MapView, dialog: Dialog) {
-        viewModel.lat.value = (map.overlays[map.overlays.size - 1] as Marker).position.latitude
-        viewModel.lon.value = (map.overlays[map.overlays.size - 1] as Marker).position.longitude
+        val latitude = (map.overlays[map.overlays.size - 1] as Marker).position.latitude
+        val longitude = (map.overlays[map.overlays.size - 1] as Marker).position.longitude
+
+        viewModel.lat.value = latitude
+        viewModel.lon.value = longitude
+
+        binding.textViewLocation.text = "Lat. $latitude Lon. $longitude"
+
+        var addresses: List<Address>? = null
+        val geocoder: Geocoder? = context?.let { Geocoder(it, Locale.getDefault()) }
+
+        if (geocoder != null) {
+            addresses = geocoder.getFromLocation(
+                latitude,
+                longitude,
+                1
+            ) as List<Address>
+        }
+
+        val address: String =
+            addresses!![0].getAddressLine(0)
+
+        if (addresses!![0].locality != null) {
+            val city: String = addresses!![0].locality
+        }
+
+        binding.createRoomTextInputLayoutRoomAddress.setText(address)
 
         Log.i("Create Room", viewModel.lat.value.toString() + " " +
                 viewModel.lon.value.toString())

@@ -46,7 +46,7 @@
             android:id="@+id/layoutName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewCreateRoom">
@@ -89,7 +89,7 @@
             android:id="@+id/layoutSpinners"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layoutName">
@@ -152,7 +152,7 @@
             android:id="@+id/layoutTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layoutSpinners">
@@ -189,7 +189,7 @@
             android:id="@+id/layoutLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
@@ -217,9 +217,9 @@
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center_horizontal|center_vertical"
                 android:hint="@string/roomAddress"
+                android:inputType="text"
                 android:textColor="#ffffff"
                 android:textColorHint="#FFFFFF"
-                android:inputType="text"
                 app:layout_constraintStart_toEndOf="@+id/textViewLocation"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -227,20 +227,35 @@
 
         <EditText
             android:id="@+id/createRoomEditTextRoomExtraDetails"
-            android:layout_width="265dp"
-            android:layout_height="92dp"
-            android:layout_marginTop="40dp"
+            android:layout_width="279dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
             android:autofillHints="autofill_hints"
             android:background="@drawable/round_corner_view"
             android:fontFamily="@font/roboto_medium"
             android:gravity="center_horizontal|center_vertical"
             android:hint="@string/roomExtraDetails"
+            android:inputType="text"
             android:textColor="#ffffff"
             android:textColorHint="#FFFFFF"
-            android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layoutLocation" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/createRoomButton"
+            android:layout_width="152dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/round_corner_view"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/createRoomButton"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/createRoomEditTextRoomExtraDetails">
+        </androidx.appcompat.widget.AppCompatButton>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
