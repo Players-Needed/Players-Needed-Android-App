@@ -21,7 +21,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.adapters.CalendarViewBindingAdapter.setDate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import org.osmdroid.api.IMapController
@@ -36,8 +35,10 @@ import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.Overlay
 import ro.pub.acs.playersneeded.R
 import ro.pub.acs.playersneeded.databinding.FragmentCreateRoomBinding
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 
 class CreateRoomFragment : Fragment() {
@@ -164,6 +165,13 @@ class CreateRoomFragment : Fragment() {
         }
 
         binding.createRoomButton.setOnClickListener {
+            viewModel.setSportType(binding.spinnerSport.selectedItem.toString())
+            viewModel.setDate(binding.textViewDate.text.toString())
+            viewModel.setTime(binding.textViewTime.text.toString())
+            viewModel.setExtraDetails(binding.createRoomEditTextRoomExtraDetails.text.toString())
+            viewModel.setName(binding.createRoomInputRoomName.text.toString())
+            viewModel.setSkillLevel(binding.spinnerSkillLevel.selectedItem.toString())
+            viewModel.setNoPlayers(binding.createRoomInputRoomNumberPlayers.text.toString())
             viewModel.sendRoomDetails()
         }
     }
@@ -236,20 +244,25 @@ class CreateRoomFragment : Fragment() {
         val latitude = (map.overlays[map.overlays.size - 1] as Marker).position.latitude
         val longitude = (map.overlays[map.overlays.size - 1] as Marker).position.longitude
 
-        viewModel.lat.value = latitude
-        viewModel.lon.value = longitude
+        viewModel.setLocationLat(latitude)
+        viewModel.setLocationLon(longitude)
 
-        binding.textViewLocation.text = "Lat. $latitude Lon. $longitude"
+        val latitudeDisplayed = (latitude * 100.0).roundToInt() / 100.0
+        val longitudeDisplayed = (longitude * 100.0).roundToInt() / 100.0
+
+        binding.textViewLocation.text = "Lat. $latitudeDisplayed Lon. $longitudeDisplayed"
 
         var addresses: List<Address>? = null
         val geocoder: Geocoder? = context?.let { Geocoder(it, Locale.getDefault()) }
 
         if (geocoder != null) {
-            addresses = geocoder.getFromLocation(
-                latitude,
-                longitude,
-                1
-            ) as List<Address>
+            try {
+                addresses = geocoder.getFromLocation(
+                    latitude,
+                    longitude,
+                    1
+                ) as List<Address>
+            } catch (_: IOException) { }
         }
 
         val address: String =
@@ -259,7 +272,7 @@ class CreateRoomFragment : Fragment() {
             val city: String = addresses!![0].locality
         }
 
-        binding.createRoomTextInputLayoutRoomAddress.setText(address)
+        binding.createRoomInputRoomAddress.setText(address)
 
         Log.i("Create Room", viewModel.lat.value.toString() + " " +
                 viewModel.lon.value.toString())
@@ -290,10 +303,25 @@ class CreateRoomFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun setTime(view: View, hour: Int, minute: Int) {
+        var text: String
+
         val timePickerDialog = TimePickerDialog(
             context,
             { _, hourOfDay, minuteOfHour ->
-                binding.textViewTime.text = "$hourOfDay:$minuteOfHour"
+                run {
+                    text = if (hourOfDay < 10) {
+                        "0$hourOfDay"
+                    } else {
+                        hourOfDay.toString()
+                    }
+                    text += ":"
+                    text += if (minuteOfHour < 10) {
+                        "0$minuteOfHour"
+                    } else {
+                        minuteOfHour.toString()
+                    }
+                    binding.textViewTime.text = "$text:00"
+                }
             },
             hour,
             minute,
@@ -304,12 +332,24 @@ class CreateRoomFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun setDate(day: Int, month: Int, year: Int) {
+        var text: String
+
         context?.let {
             DatePickerDialog(
                 it,
                 { _, year, monthOfYear, dayOfMonth ->
-                    binding.textViewDate.text =
-                        (dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year)
+                    run {
+                        text = "$year-"
+                        text += if (monthOfYear < 9)
+                            "0" + (monthOfYear + 1) + "-"
+                        else
+                            (monthOfYear + 1).toString() + "-"
+                        if (dayOfMonth < 9)
+                            text += "0" + (dayOfMonth + 1)
+                        else
+                            text += (dayOfMonth + 1)
+                        binding.textViewDate.text = text
+                    }
                 }, year, month, day
             )
         }?.show()

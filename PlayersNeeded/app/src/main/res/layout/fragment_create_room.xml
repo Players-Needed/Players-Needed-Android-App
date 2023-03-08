@@ -52,7 +52,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewCreateRoom">
 
             <EditText
-                android:id="@+id/createRoomTextInputLayoutRoomName"
+                android:id="@+id/createRoomInputRoomName"
                 android:layout_width="160dp"
                 android:layout_height="48dp"
                 android:layout_marginEnd="20dp"
@@ -64,12 +64,12 @@
                 android:inputType="text"
                 android:textColor="#ffffff"
                 android:textColorHint="#FFFFFF"
-                app:layout_constraintEnd_toStartOf="@+id/createRoomTextInputLayoutRoomNumberPlayers"
+                app:layout_constraintEnd_toStartOf="@+id/createRoomInputRoomNumberPlayers"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/createRoomTextInputLayoutRoomNumberPlayers"
+                android:id="@+id/createRoomInputRoomNumberPlayers"
                 android:layout_width="160dp"
                 android:layout_height="50dp"
                 android:autofillHints="autofill_hints"
@@ -123,7 +123,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/spinnerSport"
-                app:layout_constraintTop_toBottomOf="@+id/createRoomTextInputLayoutRoomName"
                 tools:ignore="NotSibling,SpeakableTextPresentCheck" />
 
             <ImageView
@@ -208,7 +207,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/createRoomTextInputLayoutRoomAddress"
+                android:id="@+id/createRoomInputRoomAddress"
                 android:layout_width="160dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="20dp"
