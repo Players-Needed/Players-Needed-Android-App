@@ -66,9 +66,9 @@ class SignUpFragment : Fragment() {
     private fun onSignUpButtonClicked(view: View) {
         val email = binding.signUpTextInputEditTextEmail.text.toString()
         val username = binding.signUpTextInputEditTextUsername.text.toString()
-        val password = binding.signUpTextInputEditTextPassword.text.toString()
-        val firstName = binding.signUpTextInputEditTextFirstName.text.toString()
-        val lastName = binding.signUpTextInputEditTextLastName.text.toString()
+        val password = binding.signUpTextInputLayoutPassword.text.toString()
+        val firstName = binding.signUpTextInputLayoutFirstName.text.toString()
+        val lastName = binding.signUpTextInputLayoutLastName.text.toString()
 
         val signUpResult = viewModel.requestSignUp(email, username, password, firstName, lastName)
 

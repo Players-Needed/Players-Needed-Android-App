@@ -16,77 +16,142 @@
         android:background="#060606"
         tools:context=".home.HomeScreenFragment">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/barLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:background="#222222"
+                    android:minHeight="?attr/actionBarSize"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <ImageView
+                    android:id="@+id/imageViewbackArrow"
+                    android:layout_width="46dp"
+                    android:layout_height="49dp"
+                    android:layout_marginStart="8dp"
+                    android:contentDescription="@string/userHomeScreenArrowBack"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/baseline_arrow_back_24"
+                    tools:ignore="ImageContrastCheck" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="81dp"
+                    android:layout_height="55dp"
+                    android:contentDescription="@string/application_logo"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/sports" />
+
+                <ImageView
+                    android:id="@+id/userHomeScreenImage"
+                    android:layout_width="46dp"
+                    android:layout_height="49dp"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="@string/userHomeScreenPerson"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:srcCompat="@drawable/baseline_person_24"
+                    tools:ignore="ImageContrastCheck" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textViewUserHomeScreen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/roboto_medium"
             android:text="@string/welcome_message"
             android:textColor="#ffffff"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/barLayout" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="155dp"
-            android:layout_height="155dp"
-            android:layout_marginTop="60dp"
-            android:contentDescription="@string/application_logo"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutUserHomeScreenButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/sports" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewUserHomeScreen">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/createRoomButton"
-            android:layout_width="155dp"
-            android:layout_height="78dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/round_corner_view"
-            android:fontFamily="@font/roboto_medium"
-            android:text="@string/createRoomButton"
-            android:textColor="#ffffff"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.503"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView">
-        </androidx.appcompat.widget.AppCompatButton>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/createRoomButton"
+                android:layout_width="110dp"
+                android:layout_height="80dp"
+                android:background="@drawable/round_corner_view"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/createRoomButton"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/joinRoomButton"
+                app:layout_constraintStart_toStartOf="parent">
+            </androidx.appcompat.widget.AppCompatButton>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/joinRoomButton"
-            android:layout_width="155dp"
-            android:layout_height="78dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/round_corner_view"
-            android:fontFamily="@font/roboto_medium"
-            android:text="@string/joinRoomButton"
-            android:textColor="#ffffff"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.505"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/createRoomButton">
-        </androidx.appcompat.widget.AppCompatButton>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/joinRoomButton"
+                android:layout_width="110dp"
+                android:layout_height="80dp"
+                android:background="@drawable/round_corner_view"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/joinRoomButton"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/yourRoomsButton"
+                app:layout_constraintStart_toEndOf="@+id/createRoomButton">
+            </androidx.appcompat.widget.AppCompatButton>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/yourRoomsButton"
-            android:layout_width="155dp"
-            android:layout_height="78dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/round_corner_view"
-            android:fontFamily="@font/roboto_medium"
-            android:text="@string/yourRoomsButton"
-            android:textColor="#ffffff"
-            android:textSize="18sp"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/yourRoomsButton"
+                android:layout_width="110dp"
+                android:layout_height="80dp"
+                android:background="@drawable/round_corner_view"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/yourRoomsButton"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/joinRoomButton">
+            </androidx.appcompat.widget.AppCompatButton>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/newsRecyclerView"
+            android:layout_width="367dp"
+            android:layout_height="452dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.505"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/joinRoomButton">
-        </androidx.appcompat.widget.AppCompatButton>
+            app:layout_constraintTop_toBottomOf="@+id/layoutUserHomeScreenButtons"
+            app:layout_constraintVertical_bias="0.428" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

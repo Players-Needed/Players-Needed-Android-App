@@ -60,4 +60,12 @@
 
     <!-- Location Dialog -->
     <string name="chooseLocationButton">Choose Location</string>
+
+    <!-- User Home Screen -->
+    <string name="userHomeScreenArrowBack">User Home Screen Back Arrow</string>
+    <string name="userHomeScreenPerson">User icon</string>
+
+    <!-- News View -->
+    <string name="dummyNews">Default News Image</string>
+    <string name="dummyNewsText">Some Dummy News Here</string>
 </resources>

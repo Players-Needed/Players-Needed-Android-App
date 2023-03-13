@@ -41,127 +41,96 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/sports" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/signUpTextInputLayoutEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <EditText
+            android:id="@+id/signUpTextInputEditTextEmail"
+            android:layout_width="276dp"
+            android:layout_height="52dp"
             android:layout_marginTop="16dp"
+            android:autofillHints="autofill_hints"
+            android:background="@drawable/round_corner_view"
             android:fontFamily="@font/roboto_medium"
+            android:gravity="center_horizontal|center_vertical"
             android:hint="@string/emailSignUp"
-            android:textColorHint="#ffffff"
+            android:inputType="text"
+            android:textColor="#ffffff"
+            android:textColorHint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView">
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/signUpTextInputEditTextEmail"
-                android:layout_width="276dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/round_corner_view"
-                android:fontFamily="@font/roboto_medium"
-                android:gravity="center_horizontal"
-                android:textColor="#ffffff" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/signUpTextInputLayoutUsername"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+        <EditText
+            android:id="@+id/signUpTextInputEditTextUsername"
+            android:layout_width="276dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="16dp"
+            android:autofillHints="autofill_hints"
+            android:background="@drawable/round_corner_view"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center_horizontal|center_vertical"
             android:hint="@string/usernameSignUp"
-            android:fontFamily="@font/roboto_medium"
-            android:textColorHint="#ffffff"
+            android:inputType="text"
+            android:textColor="#ffffff"
+            android:textColorHint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signUpTextInputLayoutEmail">
+            app:layout_constraintTop_toBottomOf="@+id/signUpTextInputEditTextEmail" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/signUpTextInputEditTextUsername"
-                android:fontFamily="@font/roboto_medium"
-                android:layout_width="276dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/round_corner_view"
-                android:gravity="center_horizontal"
-                android:textColor="#ffffff" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
             android:id="@+id/signUpTextInputLayoutPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_width="276dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="16dp"
+            android:autofillHints="autofill_hints"
+            android:background="@drawable/round_corner_view"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center_horizontal|center_vertical"
             android:hint="@string/passwordSignUp"
-            android:fontFamily="@font/roboto_medium"
-            android:textColorHint="#ffffff"
+            android:inputType="textPassword"
+            android:textColor="#ffffff"
+            android:textColorHint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signUpTextInputLayoutUsername">
+            app:layout_constraintTop_toBottomOf="@+id/signUpTextInputEditTextUsername" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/signUpTextInputEditTextPassword"
-                android:inputType="textPassword"
-                android:fontFamily="@font/roboto_medium"
-                android:layout_width="276dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/round_corner_view"
-                android:gravity="center_horizontal"
-                android:textColor="#ffffff" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
             android:id="@+id/signUpTextInputLayoutFirstName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_width="276dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="16dp"
+            android:autofillHints="autofill_hints"
+            android:background="@drawable/round_corner_view"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center_horizontal|center_vertical"
             android:hint="@string/firstNameSignUp"
-            android:fontFamily="@font/roboto_medium"
-            android:textColorHint="#ffffff"
+            android:inputType="text"
+            android:textColor="#ffffff"
+            android:textColorHint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signUpTextInputLayoutPassword">
+            app:layout_constraintTop_toBottomOf="@+id/signUpTextInputLayoutPassword" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/signUpTextInputEditTextFirstName"
-                android:fontFamily="@font/roboto_medium"
-                android:layout_width="276dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/round_corner_view"
-                android:gravity="center_horizontal"
-                android:textColor="#ffffff" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
             android:id="@+id/signUpTextInputLayoutLastName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="@string/lastNameSignUp"
+            android:layout_width="276dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="16dp"
+            android:autofillHints="autofill_hints"
+            android:background="@drawable/round_corner_view"
             android:fontFamily="@font/roboto_medium"
-            android:textColorHint="#ffffff"
+            android:gravity="center_horizontal|center_vertical"
+            android:hint="@string/lastNameSignUp"
+            android:inputType="text"
+            android:textColor="#ffffff"
+            android:textColorHint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signUpTextInputLayoutFirstName">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/signUpTextInputEditTextLastName"
-                android:fontFamily="@font/roboto_medium"
-                android:layout_width="276dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/round_corner_view"
-                android:gravity="center_horizontal"
-                android:textColor="#ffffff" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintTop_toBottomOf="@+id/signUpTextInputLayoutFirstName" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/signUpScreenButton"
             android:layout_width="104dp"
             android:layout_height="65dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/round_corner_view"
             android:fontFamily="@font/roboto_medium"
             android:text="@string/signUpButton"

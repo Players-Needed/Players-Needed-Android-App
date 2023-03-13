@@ -41,58 +41,45 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/sports" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/logInTextInputLayoutUsername"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <EditText
+            android:id="@+id/logInTextInputEditTextUsername"
+            android:layout_width="279dp"
+            android:layout_height="52dp"
             android:layout_marginTop="16dp"
+            android:autofillHints="autofill_hints"
+            android:background="@drawable/round_corner_view"
             android:fontFamily="@font/roboto_medium"
+            android:gravity="center_horizontal|center_vertical"
             android:hint="@string/username"
-            android:textColorHint="#ffffff"
+            android:inputType="text"
+            android:textColor="#ffffff"
+            android:textColorHint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView">
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/logInTextInputEditTextUsername"
-                android:layout_width="276dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/round_corner_view"
-                android:fontFamily="@font/roboto_medium"
-                android:gravity="center_horizontal"
-                android:textColor="#ffffff" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/logInTextInputLayoutPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="@string/password"
+        <EditText
+            android:id="@+id/logInTextInputEditTextPassword"
+            android:layout_width="279dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="16dp"
+            android:autofillHints="autofill_hints"
+            android:background="@drawable/round_corner_view"
             android:fontFamily="@font/roboto_medium"
-            android:textColorHint="#ffffff"
+            android:gravity="center_horizontal|center_vertical"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textColor="#ffffff"
+            android:textColorHint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/logInTextInputLayoutUsername">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/logInTextInputEditTextPassword"
-                android:inputType="textPassword"
-                android:fontFamily="@font/roboto_medium"
-                android:layout_width="276dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/round_corner_view"
-                android:gravity="center_horizontal"
-                android:textColor="#ffffff" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintTop_toBottomOf="@+id/logInTextInputEditTextUsername" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/logInScreenButton"
             android:layout_width="104dp"
             android:layout_height="65dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/round_corner_view"
             android:fontFamily="@font/roboto_medium"
             android:text="@string/logInButton"
@@ -100,7 +87,7 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/logInTextInputLayoutPassword">
+            app:layout_constraintTop_toBottomOf="@+id/logInTextInputEditTextPassword">
         </androidx.appcompat.widget.AppCompatButton>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

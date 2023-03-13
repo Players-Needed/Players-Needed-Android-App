@@ -21,6 +21,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.adapters.CalendarViewBindingAdapter.setDate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import org.osmdroid.api.IMapController
@@ -195,7 +196,7 @@ class CreateRoomFragment : Fragment() {
             20,
             512,
             ".png",
-            arrayOf("https://a.tile.openstreetmap.org/")
+            arrayOf("https://b.tile.openstreetmap.org/")
         ) {
             override fun getTileURLString(pMapTileIndex: Long): String {
                 return (baseUrl
@@ -262,17 +263,21 @@ class CreateRoomFragment : Fragment() {
                     longitude,
                     1
                 ) as List<Address>
-            } catch (_: IOException) { }
+            } catch (e: IOException) {
+                Log.i("Create Room", e.printStackTrace().toString())
+            }
         }
 
-        val address: String =
-            addresses!![0].getAddressLine(0)
+        var address: String = ""
+        if (addresses != null) {
+            address = addresses[0].getAddressLine(0)
 
-        if (addresses!![0].locality != null) {
-            val city: String = addresses!![0].locality
+            if (addresses[0].locality != null) {
+                val city: String = addresses[0].locality
+            }
+
+            binding.createRoomInputRoomAddress.setText(address)
         }
-
-        binding.createRoomInputRoomAddress.setText(address)
 
         Log.i("Create Room", viewModel.lat.value.toString() + " " +
                 viewModel.lon.value.toString())

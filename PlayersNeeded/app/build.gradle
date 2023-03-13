@@ -70,4 +70,5 @@ dependencies {
 
     // map
     implementation 'org.osmdroid:osmdroid-android:6.0.3'
+
 }

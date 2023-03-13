@@ -6,17 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import ro.pub.acs.playersneeded.R
 import ro.pub.acs.playersneeded.databinding.FragmentUserHomeScreenBinding
+import ro.pub.acs.playersneeded.news.NewsAdapter
 
 
 class UserHomeScreenFragment : Fragment() {
     private lateinit var viewModel: UserHomeScreenViewModel
     private lateinit var viewModelFactory: UserHomeScreenViewModelFactory
     private lateinit var binding: FragmentUserHomeScreenBinding
+    private lateinit var newsRecyclerView: RecyclerView
+    private lateinit var adapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,6 +34,13 @@ class UserHomeScreenFragment : Fragment() {
         viewModelFactory = UserHomeScreenViewModelFactory(UserHomeScreenFragmentArgs.fromBundle
             (requireArguments()).token!!)
         viewModel = ViewModelProvider(this, viewModelFactory)[UserHomeScreenViewModel::class.java]
+
+        newsRecyclerView = binding.newsRecyclerView
+        newsRecyclerView.layoutManager = LinearLayoutManager(context)
+        newsRecyclerView.setHasFixedSize(true)
+
+        adapter = NewsAdapter(viewModel.newsList)
+        newsRecyclerView.adapter = adapter
 
         setHasOptionsMenu(false)
         return binding.root
