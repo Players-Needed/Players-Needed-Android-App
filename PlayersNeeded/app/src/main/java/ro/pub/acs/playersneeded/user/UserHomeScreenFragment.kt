@@ -58,7 +58,10 @@ class UserHomeScreenFragment : Fragment() {
     }
 
     private fun yourRooms() {
-        TODO("Not yet implemented")
+        val action =
+            UserHomeScreenFragmentDirections
+                .actionUserHomeScreenFragmentToYourRoomsFragment(viewModel.token)
+        NavHostFragment.findNavController(this).navigate(action)
     }
 
     private fun joinRoom() {

@@ -66,7 +66,11 @@
         android:id="@+id/yourRoomsFragment"
         android:name="ro.pub.acs.playersneeded.yourrooms.YourRoomsFragment"
         android:label="fragment_your_rooms"
-        tools:layout="@layout/fragment_your_rooms" />
+        tools:layout="@layout/fragment_your_rooms">
+        <argument
+            android:name="token"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/joinRoomFragment"
         android:name="ro.pub.acs.playersneeded.joinroom.JoinRoomFragment"

@@ -17,6 +17,67 @@
         android:background="#060606"
         tools:context=".roomcreation.CreateRoomFragment">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/barLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#222222"
+                    android:minHeight="?attr/actionBarSize"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <ImageView
+                    android:id="@+id/imageViewbackArrow"
+                    android:layout_width="46dp"
+                    android:layout_height="49dp"
+                    android:layout_marginStart="8dp"
+                    android:contentDescription="@string/userHomeScreenArrowBack"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/baseline_arrow_back_24"
+                    tools:ignore="ImageContrastCheck" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="81dp"
+                    android:layout_height="55dp"
+                    android:contentDescription="@string/application_logo"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/sports" />
+
+                <ImageView
+                    android:id="@+id/userHomeScreenImage"
+                    android:layout_width="46dp"
+                    android:layout_height="49dp"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="@string/userHomeScreenPerson"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:srcCompat="@drawable/baseline_person_24"
+                    tools:ignore="ImageContrastCheck" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
         <TextView
             android:id="@+id/textViewCreateRoom"
             android:layout_width="wrap_content"
@@ -28,19 +89,7 @@
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="74dp"
-            android:layout_height="55dp"
-            android:layout_marginTop="40dp"
-            android:contentDescription="@string/application_logo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/sports" />
+            app:layout_constraintTop_toBottomOf="@+id/barLayout" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutName"

@@ -1,4 +1,6 @@
 package ro.pub.acs.playersneeded.yourrooms
 
-class YourRoomsViewModel {
+import androidx.lifecycle.ViewModel
+
+class YourRoomsViewModel(tokenArgument: String) : ViewModel() {
 }

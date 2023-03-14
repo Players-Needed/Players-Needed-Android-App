@@ -68,4 +68,10 @@
     <!-- News View -->
     <string name="dummyNews">Default News Image</string>
     <string name="dummyNewsText">Some Dummy News Here</string>
+
+    <!-- Your Rooms -->
+    <string name="yourRoomsMessage">Your Rooms</string>
+
+    <!-- Join Room -->
+    <string name="joinRoomMessage">Join a Players Room</string>
 </resources>
