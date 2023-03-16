@@ -74,4 +74,8 @@
 
     <!-- Join Room -->
     <string name="joinRoomMessage">Join a Players Room</string>
+
+    <!-- Room View -->
+    <string name="dummySportImage">Dummy Sport Image</string>
+    <string name="dummyRoomDescription">Dummy Room Description</string>
 </resources>

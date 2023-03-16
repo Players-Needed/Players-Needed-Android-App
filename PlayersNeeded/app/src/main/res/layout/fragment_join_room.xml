@@ -7,7 +7,7 @@
     <data>
         <variable
             name="joinRoomViewModel"
-            type="ro.pub.acs.playersneeded.yourrooms.joinRoomViewModel" />
+            type="ro.pub.acs.playersneeded.joinroom.JoinRoomViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -4,42 +4,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
-    android:id="@+id/newsConstraintLayout"
+    android:id="@+id/roomConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#060606">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="411dp"
+        android:layout_height="156dp"
         android:background="#222222"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/defaultNewsImage"
-            android:layout_width="325dp"
-            android:layout_height="278dp"
-            android:contentDescription="@string/dummyNews"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
+            android:id="@+id/sportsImage"
+            android:layout_width="78dp"
+            android:layout_height="86dp"
+            android:contentDescription="@string/dummySportImage"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/sport_news"
+            app:srcCompat="@drawable/sports"
             tools:ignore="ImageContrastCheck" />
 
         <TextView
             android:id="@+id/defaultNewsTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="306dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="@string/dummyNewsText"
+            android:text="@string/dummyRoomDescription"
             android:textColor="#ffffff"
             android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/defaultNewsImage" />
+            app:layout_constraintStart_toEndOf="@+id/sportsImage"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
