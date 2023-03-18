@@ -75,5 +75,9 @@
         android:id="@+id/joinRoomFragment"
         android:name="ro.pub.acs.playersneeded.joinroom.JoinRoomFragment"
         android:label="fragment_join_room"
-        tools:layout="@layout/fragment_join_room" />
+        tools:layout="@layout/fragment_join_room">
+        <argument
+            android:name="token"
+            app:argType="string" />
+    </fragment>
 </navigation>

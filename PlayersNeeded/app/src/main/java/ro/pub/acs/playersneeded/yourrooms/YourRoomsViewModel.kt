@@ -16,5 +16,17 @@ class YourRoomsViewModel(tokenArgument: String) : ViewModel() {
 
         roomList += Room("room", "sport", "date", "time", "location",
             "address", "extraDetails", "skillLevel", 2)
+        roomList += Room("room", "sport", "date", "time", "location",
+            "address", "extraDetails", "skillLevel", 2)
+        roomList += Room("room", "sport", "date", "time", "location",
+            "address", "extraDetails", "skillLevel", 2)
+        roomList += Room("room", "sport", "date", "time", "location",
+            "address", "extraDetails", "skillLevel", 2)
+        roomList += Room("room", "sport", "date", "time", "location",
+            "address", "extraDetails", "skillLevel", 2)
+        roomList += Room("room", "sport", "date", "time", "location",
+            "address", "extraDetails", "skillLevel", 2)
+        roomList += Room("room", "sport", "date", "time", "location",
+            "address", "extraDetails", "skillLevel", 2)
     }
 }

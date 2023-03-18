@@ -1,5 +1,6 @@
 package ro.pub.acs.playersneeded.yourrooms
 
+import android.R
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.StrictMode
@@ -7,15 +8,18 @@ import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.osmdroid.config.Configuration
 import ro.pub.acs.playersneeded.databinding.FragmentYourRoomsBinding
-import ro.pub.acs.playersneeded.news.NewsAdapter
 import ro.pub.acs.playersneeded.room.RoomAdapter
+
 
 class YourRoomsFragment : Fragment() {
     private lateinit var viewModel: YourRoomsViewModel
@@ -54,10 +58,27 @@ class YourRoomsFragment : Fragment() {
         roomRecyclerView.layoutManager = LinearLayoutManager(context)
         roomRecyclerView.setHasFixedSize(true)
 
+        val dividerItemDecoration =
+            DividerItemDecoration(roomRecyclerView.context, DividerItemDecoration.VERTICAL)
+        dividerItemDecoration.setDrawable(
+            context?.let {
+                ContextCompat.getDrawable(it, ro.pub.acs.playersneeded.R.drawable.divider)
+            }!!
+        )
+        roomRecyclerView.addItemDecoration(dividerItemDecoration)
+
         adapter = RoomAdapter(viewModel.roomList)
         roomRecyclerView.adapter = adapter
 
         setHasOptionsMenu(false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.imageViewbackArrow.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 }

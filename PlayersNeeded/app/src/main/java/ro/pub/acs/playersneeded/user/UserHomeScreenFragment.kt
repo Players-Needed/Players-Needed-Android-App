@@ -5,9 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.NavUtils
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ro.pub.acs.playersneeded.R
@@ -39,6 +43,15 @@ class UserHomeScreenFragment : Fragment() {
         newsRecyclerView.layoutManager = LinearLayoutManager(context)
         newsRecyclerView.setHasFixedSize(true)
 
+        val dividerItemDecoration =
+            DividerItemDecoration(newsRecyclerView.context, DividerItemDecoration.VERTICAL)
+        dividerItemDecoration.setDrawable(
+            context?.let {
+                ContextCompat.getDrawable(it, ro.pub.acs.playersneeded.R.drawable.divider)
+            }!!
+        )
+        newsRecyclerView.addItemDecoration(dividerItemDecoration)
+
         adapter = NewsAdapter(viewModel.newsList)
         newsRecyclerView.adapter = adapter
 
@@ -55,7 +68,12 @@ class UserHomeScreenFragment : Fragment() {
         binding.createRoomButton.setOnClickListener{ createRoom() }
         binding.joinRoomButton.setOnClickListener{ joinRoom() }
         binding.yourRoomsButton.setOnClickListener{ yourRooms() }
+        binding.imageViewbackArrow.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
+
+
 
     private fun yourRooms() {
         val action =
@@ -65,7 +83,10 @@ class UserHomeScreenFragment : Fragment() {
     }
 
     private fun joinRoom() {
-        TODO("Not yet implemented")
+        val action =
+            UserHomeScreenFragmentDirections
+                .actionUserHomeScreenFragmentToJoinRoomFragment(viewModel.token)
+        NavHostFragment.findNavController(this).navigate(action)
     }
 
     private fun createRoom() {

@@ -23,7 +23,7 @@
         android:layout_width="197dp"
         android:layout_height="68dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/round_corner_view"
+        android:background="@drawable/round_corner_view_non_recycler"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/chooseLocationButton"
         android:textColor="#ffffff"

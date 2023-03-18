@@ -7,20 +7,46 @@
     android:id="@+id/roomConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#060606">
+    android:background="@drawable/round_corner_view_recycler">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="156dp"
-        android:background="#222222"
+        android:background="@drawable/round_corner_view_recycler"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/roomTextViewAddress"
+            android:layout_width="306dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/dummyRoomDescription"
+            android:textColor="#ffffff"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/sportsImage"
+            app:layout_constraintTop_toBottomOf="@+id/roomTextViewDateTime" />
+
+        <TextView
+            android:id="@+id/roomTextViewRoomName"
+            android:layout_width="306dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/dummyRoomDescription"
+            android:textColor="#ffffff"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/sportsImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/sportsImage"
-            android:layout_width="78dp"
-            android:layout_height="86dp"
+            android:layout_width="89dp"
+            android:layout_height="157dp"
             android:contentDescription="@string/dummySportImage"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -28,17 +54,17 @@
             tools:ignore="ImageContrastCheck" />
 
         <TextView
-            android:id="@+id/defaultNewsTextView"
+            android:id="@+id/roomTextViewDateTime"
             android:layout_width="306dp"
             android:layout_height="38dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/roboto_medium"
             android:text="@string/dummyRoomDescription"
             android:textColor="#ffffff"
             android:textSize="24sp"
             app:layout_constraintStart_toEndOf="@+id/sportsImage"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/roomTextViewRoomName" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

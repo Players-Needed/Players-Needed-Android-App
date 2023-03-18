@@ -24,6 +24,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.adapters.CalendarViewBindingAdapter.setDate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import org.osmdroid.api.IMapController
 import org.osmdroid.config.Configuration
 import org.osmdroid.events.MapEventsReceiver
@@ -174,6 +175,10 @@ class CreateRoomFragment : Fragment() {
             viewModel.setSkillLevel(binding.spinnerSkillLevel.selectedItem.toString())
             viewModel.setNoPlayers(binding.createRoomInputRoomNumberPlayers.text.toString())
             viewModel.sendRoomDetails()
+        }
+
+        binding.imageViewbackArrow.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 
