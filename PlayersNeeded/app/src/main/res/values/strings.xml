@@ -45,16 +45,17 @@
     <string-array name="sports">
         <item>Sport</item>
         <item>Football</item>
-        <item>Tennis</item>
+        <item>Tenis</item>
         <item>Jogging</item>
         <item>Gym</item>
-        <item>Volley</item>
+        <item>Basketball</item>
     </string-array>
     <string-array name="skills">
         <item>Skill Level</item>
         <item>Novice</item>
-        <item>Medium</item>
+        <item>Middle</item>
         <item>Advanced</item>
+        <item>Expert</item>
     </string-array>
     <string name="title_activity_maps">MapsActivity</string>
 
@@ -78,4 +79,12 @@
     <!-- Room View -->
     <string name="dummySportImage">Dummy Sport Image</string>
     <string name="dummyRoomDescription">Dummy Room Description</string>
+    <string name="filterDropdownArrowDescription">Filter Dropdown Arrow</string>
+
+    <!-- Filter Room -->
+    <string name="filterPreferences">Choose Preferences</string>
+    <string name="filterImageDescription">Filter Image Description</string>
+    <string name="filtersTextView">Filters</string>
+    <string name="applyFilters">Apply Filters</string>
+
 </resources>

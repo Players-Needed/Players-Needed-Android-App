@@ -103,7 +103,7 @@
             <EditText
                 android:id="@+id/createRoomInputRoomName"
                 android:layout_width="160dp"
-                android:layout_height="48dp"
+                android:layout_height="50dp"
                 android:layout_marginEnd="20dp"
                 android:autofillHints="autofill_hints"
                 android:background="@drawable/round_corner_view_non_recycler"
@@ -146,7 +146,7 @@
             <Spinner
                 android:id="@+id/spinnerSport"
                 android:layout_width="160dp"
-                android:layout_height="47dp"
+                android:layout_height="50dp"
                 android:background="@drawable/round_corner_view_non_recycler"
                 android:dropDownSelector="@android:drawable/alert_dark_frame"
                 android:spinnerMode="dropdown"

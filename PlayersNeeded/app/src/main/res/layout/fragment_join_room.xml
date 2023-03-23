@@ -11,6 +11,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/joinRoomConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#060606"
@@ -90,33 +91,31 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/barLayout" />
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/filterBar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+        <TextView
+            android:id="@+id/textViewPreferences"
+            android:layout_width="365dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/round_corner_view_non_recycler"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:text="@string/filterPreferences"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewJoinRoom">
+            app:layout_constraintTop_toBottomOf="@+id/textViewJoinRoom" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/filterToolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#222222"
-                    android:minHeight="?attr/actionBarSize"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.appbar.AppBarLayout>
+        <ImageView
+            android:id="@+id/filterImage"
+            android:layout_width="46dp"
+            android:layout_height="49dp"
+            android:contentDescription="@string/filterImageDescription"
+            app:layout_constraintEnd_toEndOf="@+id/textViewPreferences"
+            app:layout_constraintTop_toTopOf="@+id/textViewPreferences"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewPreferences"
+            app:srcCompat="@drawable/baseline_filter_list_24"
+            tools:ignore="ImageContrastCheck" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/roomRecyclerView"
@@ -125,7 +124,7 @@
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filterBar" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewPreferences" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -95,6 +95,10 @@ class CreateRoomViewModel(tokenArgument: String) : ViewModel() {
         _noPlayers.value = noPlayersArg
     }
 
+    fun setAddress(address: String) {
+        _address.value = address
+    }
+
     fun sendRoomDetails() {
         val jsonObject = JSONObject()
         jsonObject.put("sport_type", _sportType.value)
@@ -102,6 +106,7 @@ class CreateRoomViewModel(tokenArgument: String) : ViewModel() {
         jsonObject.put("time", _time.value)
         jsonObject.put("location_lat", _lat.value)
         jsonObject.put("location_lon", _lon.value)
+        jsonObject.put("location_address", _address.value)
         jsonObject.put("extra_details", _extraDetails.value)
         jsonObject.put("name", _roomName.value)
         jsonObject.put("skill_level", _skillLevel.value)

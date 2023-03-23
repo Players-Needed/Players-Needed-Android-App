@@ -17,10 +17,10 @@ class RoomAdapter(private val roomList: Array<Room>) : RecyclerView.Adapter<Room
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomAdapter.RoomViewHolder {
-        val newsView = LayoutInflater.from(parent.context).inflate(
+        val roomView = LayoutInflater.from(parent.context).inflate(
             R.layout.room_view, parent,
             false)
-        return RoomAdapter.RoomViewHolder(newsView)
+        return RoomAdapter.RoomViewHolder(roomView)
     }
 
     @SuppressLint("SetTextI18n")

@@ -174,6 +174,7 @@ class CreateRoomFragment : Fragment() {
             viewModel.setName(binding.createRoomInputRoomName.text.toString())
             viewModel.setSkillLevel(binding.spinnerSkillLevel.selectedItem.toString())
             viewModel.setNoPlayers(binding.createRoomInputRoomNumberPlayers.text.toString())
+            viewModel.setAddress(binding.createRoomInputRoomAddress.text.toString())
             viewModel.sendRoomDetails()
         }
 
@@ -355,9 +356,9 @@ class CreateRoomFragment : Fragment() {
                         else
                             (monthOfYear + 1).toString() + "-"
                         if (dayOfMonth < 9)
-                            text += "0" + (dayOfMonth + 1)
+                            text += "0$dayOfMonth"
                         else
-                            text += (dayOfMonth + 1)
+                            text += dayOfMonth
                         binding.textViewDate.text = text
                     }
                 }, year, month, day
