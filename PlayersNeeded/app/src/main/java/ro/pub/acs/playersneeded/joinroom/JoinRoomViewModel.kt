@@ -123,9 +123,10 @@ class JoinRoomViewModel(tokenArgument: String) : ViewModel() {
             val roomDate = jsonRoom.getString("date")
             val roomTime = jsonRoom.getString("time")
             val roomAddress = jsonRoom.getString("location_address")
+            val id = jsonRoom.getString("id")
 
             roomList += Room(roomName, roomSport, roomDate, roomTime, "",
-                roomAddress, "", "", 1)
+                roomAddress, "", "", 1, id.toInt())
         }
     }
 

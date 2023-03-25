@@ -87,4 +87,14 @@
     <string name="filtersTextView">Filters</string>
     <string name="applyFilters">Apply Filters</string>
 
+    <!-- Room Screen-->
+    <string name="overviewRoomButton">Overview</string>
+    <string name="playersRoomButton">Players</string>
+    <string name="chatRoomButton">Chat</string>
+    <string name="operationButton">Operation</string>
+    <string name="errorCreateRoom">Unable to Create Room</string>
+    <string name="joinButton">Join</string>
+    <string name="exitButton">Exit</string>
+    <string name="editButton">Edit</string>
+    <string name="deleteButton">Delete</string>
 </resources>

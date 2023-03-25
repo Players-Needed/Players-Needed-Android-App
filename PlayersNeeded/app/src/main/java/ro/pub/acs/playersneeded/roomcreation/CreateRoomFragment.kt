@@ -19,11 +19,13 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.adapters.CalendarViewBindingAdapter.setDate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import org.osmdroid.api.IMapController
 import org.osmdroid.config.Configuration
@@ -37,6 +39,7 @@ import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.Overlay
 import ro.pub.acs.playersneeded.R
 import ro.pub.acs.playersneeded.databinding.FragmentCreateRoomBinding
+import ro.pub.acs.playersneeded.login.LogInFragmentDirections
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -180,6 +183,28 @@ class CreateRoomFragment : Fragment() {
 
         binding.imageViewbackArrow.setOnClickListener {
             findNavController().popBackStack()
+        }
+
+        viewModel.createRoomResult.observe(viewLifecycleOwner) { roomCreated ->
+            navigateToRoomScreen(roomCreated)
+        }
+    }
+
+    private fun navigateToRoomScreen(roomCreated: Boolean?) {
+        if (roomCreated == true) {
+            val token = viewModel.token
+            val id = viewModel.roomId
+
+            val action =
+                CreateRoomFragmentDirections.actionCreateRoomFragmentToRoomFragment(id, token)
+            NavHostFragment.findNavController(this).navigate(action)
+        } else {
+            val errorToast = Toast.makeText(
+                context,
+                R.string.errorCreateRoom,
+                Toast.LENGTH_SHORT
+            )
+            errorToast.show()
         }
     }
 

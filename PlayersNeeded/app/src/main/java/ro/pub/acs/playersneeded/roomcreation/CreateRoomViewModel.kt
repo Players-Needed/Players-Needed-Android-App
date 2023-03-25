@@ -1,6 +1,7 @@
 package ro.pub.acs.playersneeded.roomcreation
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.GsonBuilder
@@ -11,10 +12,16 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONArray
 import org.json.JSONObject
 import ro.pub.acs.playersneeded.api.PlayersNeededApi
+import kotlin.properties.Delegates
 
 class CreateRoomViewModel(tokenArgument: String) : ViewModel() {
+    private var _roomId = -1
+    val roomId: Int
+        get() = _roomId
+
     private var _token = tokenArgument
     val token: String
         get() = _token
@@ -99,6 +106,10 @@ class CreateRoomViewModel(tokenArgument: String) : ViewModel() {
         _address.value = address
     }
 
+    private var _createRoomResult = MutableLiveData<Boolean>()
+    val createRoomResult: LiveData<Boolean>
+        get() = _createRoomResult
+
     fun sendRoomDetails() {
         val jsonObject = JSONObject()
         jsonObject.put("sport_type", _sportType.value)
@@ -134,10 +145,18 @@ class CreateRoomViewModel(tokenArgument: String) : ViewModel() {
                     )
 
                     Log.i("CreateRoomViewModel", prettyJson)
+
+                    /* get the id of the room that was created */
+                    val jsonObj = JSONObject(prettyJson)
+                    _roomId = jsonObj.getString("id").toInt()
+
+                    _createRoomResult.value = true
                 }
                 else {
                     Log.i("CreateRoomViewModel", response.code().toString() + " "
                             + response.message() + "\n" + jsonString)
+
+                    _createRoomResult.value = false
                 }
             }
         }

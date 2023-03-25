@@ -26,8 +26,14 @@ interface PlayersNeededApiService {
 
     @GET("/api/rooms")
     suspend fun getRooms(@QueryMap params: Map<String, String>, @HeaderMap headers: Map<String,
-            String>) :
-            Response<ResponseBody>
+            String>) : Response<ResponseBody>
+
+    @GET("/api/rooms/{roomId}")
+    suspend fun getRoom(@Path("roomId") roomId: String, @HeaderMap headers: Map<String,
+            String>) : Response<ResponseBody>
+
+    @GET("/api/players/self")
+    suspend fun getSelfPlayer(@HeaderMap headers: Map<String, String>) : Response<ResponseBody>
 }
 
 object PlayersNeededApi {

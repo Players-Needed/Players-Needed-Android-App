@@ -1,6 +1,5 @@
 package ro.pub.acs.playersneeded.yourrooms
 
-import android.R
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.Dialog
@@ -80,7 +79,7 @@ class YourRoomsFragment : Fragment() {
 
                 Log.i("YourRoomsFragment", "Pulled available rooms")
 
-                adapter = RoomAdapter(viewModel.roomList)
+                adapter = RoomAdapter(viewModel.roomList, viewModel.token, this)
                 roomRecyclerView.adapter = adapter
                 viewModel.roomDataGot()
             }

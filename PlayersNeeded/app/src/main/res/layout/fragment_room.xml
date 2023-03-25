@@ -1,14 +1,375 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".RoomFragment">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+        <variable
+            name="roomViewModel"
+            type="ro.pub.acs.playersneeded.roomscreen.RoomViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/roomConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="#060606"
+        tools:context=".roomscreen.RoomFragment">
 
-</FrameLayout>
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/barLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#222222"
+                    android:minHeight="?attr/actionBarSize"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <ImageView
+                    android:id="@+id/imageViewbackArrow"
+                    android:layout_width="46dp"
+                    android:layout_height="49dp"
+                    android:layout_marginStart="8dp"
+                    android:contentDescription="@string/userHomeScreenArrowBack"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/baseline_arrow_back_24"
+                    tools:ignore="ImageContrastCheck" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="81dp"
+                    android:layout_height="55dp"
+                    android:contentDescription="@string/application_logo"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/sports" />
+
+                <ImageView
+                    android:id="@+id/roomImage"
+                    android:layout_width="46dp"
+                    android:layout_height="49dp"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="@string/userHomeScreenPerson"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:srcCompat="@drawable/baseline_person_24"
+                    tools:ignore="ImageContrastCheck" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <TextView
+            android:id="@+id/textViewRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/welcome_message"
+            android:textColor="#ffffff"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/barLayout" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutRoomScreenButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewRoom">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/overviewButton"
+                android:layout_width="110dp"
+                android:layout_height="60dp"
+                android:background="@drawable/round_corner_view_non_recycler"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/overviewRoomButton"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/playersButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+            </androidx.appcompat.widget.AppCompatButton>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/playersButton"
+                android:layout_width="110dp"
+                android:layout_height="60dp"
+                android:background="@drawable/round_corner_view_non_recycler"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/playersRoomButton"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/chatButton"
+                app:layout_constraintStart_toEndOf="@+id/overviewButton"
+                app:layout_constraintTop_toTopOf="parent">
+            </androidx.appcompat.widget.AppCompatButton>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/chatButton"
+                android:layout_width="110dp"
+                android:layout_height="60dp"
+                android:background="@drawable/round_corner_view_non_recycler"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/chatRoomButton"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/playersButton"
+                app:layout_constraintTop_toTopOf="parent">
+            </androidx.appcompat.widget.AppCompatButton>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:id="@+id/layoutConditional"
+            android:layout_width="match_parent"
+            android:layout_height="480dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutRoomScreenButtons"
+            android:background="@drawable/round_corner_view_recycler">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutOverview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/defaultRoomImage"
+                    android:layout_width="75dp"
+                    android:layout_height="62dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:contentDescription="@string/dummySportImage"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/sports"
+                    tools:ignore="ImageContrastCheck" />
+
+                <TextView
+                    android:id="@+id/textViewOverviewName"
+                    android:layout_width="330dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_corner_view_room_details"
+                    android:gravity="center"
+                    android:text="@string/roomName"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/defaultRoomImage" />
+
+                <TextView
+                    android:id="@+id/textViewOverviewSport"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_corner_view_room_details"
+                    android:gravity="center"
+                    android:text="@string/roomSport"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewOverviewName" />
+
+                <TextView
+                    android:id="@+id/textViewOverviewSkill"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="@drawable/round_corner_view_room_details"
+                    android:gravity="center"
+                    android:text="@string/roomSkill"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewOverviewName" />
+
+                <TextView
+                    android:id="@+id/textViewOverviewDate"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_corner_view_room_details"
+                    android:gravity="center"
+                    android:text="@string/roomDate"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewOverviewSkill" />
+
+                <TextView
+                    android:id="@+id/textViewOverviewTime"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="@drawable/round_corner_view_room_details"
+                    android:gravity="center"
+                    android:text="@string/roomTime"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewOverviewSkill" />
+
+                <TextView
+                    android:id="@+id/textViewOverviewLocation"
+                    android:layout_width="330dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_corner_view_room_details"
+                    android:gravity="center"
+                    android:text="@string/roomAddress"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewOverviewTime" />
+
+                <TextView
+                    android:id="@+id/textViewOverviewExtraDetails"
+                    android:layout_width="330dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_corner_view_room_details"
+                    android:gravity="center"
+                    android:text="@string/roomExtraDetails"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewOverviewLocation" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/joinRoomButton"
+                    android:layout_width="110dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_corner_view_non_recycler"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="@string/joinButton"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewOverviewExtraDetails">
+                </androidx.appcompat.widget.AppCompatButton>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/editRoomButton"
+                    android:layout_width="110dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_corner_view_non_recycler"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="@string/editButton"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toStartOf="@+id/deleteRoomButton"
+                    app:layout_constraintStart_toEndOf="@+id/exitRoomButton"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewOverviewExtraDetails">
+                </androidx.appcompat.widget.AppCompatButton>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/exitRoomButton"
+                    android:layout_width="110dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_corner_view_non_recycler"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="@string/exitButton"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toStartOf="@+id/editRoomButton"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewOverviewExtraDetails">
+                </androidx.appcompat.widget.AppCompatButton>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/deleteRoomButton"
+                    android:layout_width="110dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_corner_view_non_recycler"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="@string/deleteButton"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/editRoomButton"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewOverviewExtraDetails">
+                </androidx.appcompat.widget.AppCompatButton>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutPlayers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutChat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -61,6 +61,9 @@
         <argument
             android:name="token"
             app:argType="string" />
+        <action
+            android:id="@+id/action_createRoomFragment_to_roomFragment"
+            app:destination="@id/roomFragment" />
     </fragment>
     <fragment
         android:id="@+id/yourRoomsFragment"
@@ -70,12 +73,30 @@
         <argument
             android:name="token"
             app:argType="string" />
+        <action
+            android:id="@+id/action_yourRoomsFragment_to_roomFragment"
+            app:destination="@id/roomFragment" />
     </fragment>
     <fragment
         android:id="@+id/joinRoomFragment"
         android:name="ro.pub.acs.playersneeded.joinroom.JoinRoomFragment"
         android:label="fragment_join_room"
         tools:layout="@layout/fragment_join_room">
+        <argument
+            android:name="token"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_joinRoomFragment_to_roomFragment"
+            app:destination="@id/roomFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/roomFragment"
+        android:name="ro.pub.acs.playersneeded.roomscreen.RoomFragment"
+        android:label="fragment_room"
+        tools:layout="@layout/fragment_room">
+        <argument
+            android:name="id"
+            app:argType="integer" />
         <argument
             android:name="token"
             app:argType="string" />

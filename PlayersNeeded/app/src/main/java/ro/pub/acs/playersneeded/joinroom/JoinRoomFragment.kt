@@ -83,7 +83,7 @@ class JoinRoomFragment : Fragment() {
 
                 Log.i("JoinRoomFragment", "Pulled available rooms")
 
-                adapter = RoomAdapter(viewModel.roomList)
+                adapter = RoomAdapter(viewModel.roomList, viewModel.token, this)
                 roomRecyclerView.adapter = adapter
                 viewModel.roomDataGot()
             }

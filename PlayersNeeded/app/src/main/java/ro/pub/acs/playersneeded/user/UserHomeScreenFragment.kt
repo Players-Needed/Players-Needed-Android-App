@@ -73,8 +73,6 @@ class UserHomeScreenFragment : Fragment() {
         }
     }
 
-
-
     private fun yourRooms() {
         val action =
             UserHomeScreenFragmentDirections
