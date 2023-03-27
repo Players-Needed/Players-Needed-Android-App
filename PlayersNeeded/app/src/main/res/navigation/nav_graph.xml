@@ -52,6 +52,9 @@
         <action
             android:id="@+id/action_userHomeScreenFragment_to_joinRoomFragment"
             app:destination="@id/joinRoomFragment" />
+        <action
+            android:id="@+id/action_userHomeScreenFragment_to_homeScreenFragment"
+            app:destination="@id/homeScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/createRoomFragment"
@@ -76,6 +79,9 @@
         <action
             android:id="@+id/action_yourRoomsFragment_to_roomFragment"
             app:destination="@id/roomFragment" />
+        <action
+            android:id="@+id/action_yourRoomsFragment_to_userHomeScreenFragment3"
+            app:destination="@id/userHomeScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/joinRoomFragment"
@@ -100,5 +106,8 @@
         <argument
             android:name="token"
             app:argType="string" />
+        <action
+            android:id="@+id/action_roomFragment_to_yourRoomsFragment"
+            app:destination="@id/yourRoomsFragment" />
     </fragment>
 </navigation>

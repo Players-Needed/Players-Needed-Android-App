@@ -10,12 +10,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import ro.pub.acs.playersneeded.api.PlayersNeededApi
 import ro.pub.acs.playersneeded.player.Player
 
+/**
+ * This class implements the logic behind the room fragment
+ * screen (API requests and live data operations)
+ */
 class RoomViewModel(tokenArgument: String, idArgument: Int) : ViewModel() {
     lateinit var playersList : Array<Player>
 
@@ -83,6 +85,22 @@ class RoomViewModel(tokenArgument: String, idArgument: Int) : ViewModel() {
     val getSelfPlayerResult: LiveData<Boolean>
         get() = _getSelfPlayerResult
 
+    private var _joinRoomResult = MutableLiveData<Boolean>()
+    val joinRoomResult: LiveData<Boolean>
+        get() = _joinRoomResult
+
+    private var _exitRoomResult = MutableLiveData<Boolean>()
+    val exitRoomResult: LiveData<Boolean>
+        get() = _exitRoomResult
+
+    private var _deleteRoomResult = MutableLiveData<Boolean>()
+    val deleteRoomResult: LiveData<Boolean>
+        get() = _deleteRoomResult
+
+    /**
+     * Function that performs a GET request in order to pull the
+     * existing details about the room
+     */
     fun getRoomDetails() {
         val jsonObject = JSONObject()
 
@@ -109,6 +127,7 @@ class RoomViewModel(tokenArgument: String, idArgument: Int) : ViewModel() {
                     Log.i("RoomViewModel", prettyJson)
 
                     setDetails(prettyJson)
+                    populatePlayerList(prettyJson)
 
                     _getDetailsResult.value = true
                 }
@@ -122,6 +141,42 @@ class RoomViewModel(tokenArgument: String, idArgument: Int) : ViewModel() {
         }
     }
 
+    /**
+     * Function that extracts the list of players from the room
+     * and populates the player list variable
+     */
+    private fun populatePlayerList(prettyJson: String?) {
+        val jsonObj = prettyJson?.let { JSONObject(it) }
+
+        var id: Int
+        var email: String
+        var username: String
+        var experience: Int
+        var level: Int
+        var jsonPlayer: JSONObject
+
+        playersList = arrayOf()
+
+        if (jsonObj != null) {
+            val jsonArray = jsonObj.getJSONArray("players")
+
+            for (i in 0 until jsonArray.length()) {
+                jsonPlayer = jsonArray.getJSONObject(i)
+
+                id = jsonPlayer.getString("id").toInt()
+                email = jsonPlayer.getString("email")
+                username = jsonPlayer.getString("username")
+                experience = jsonPlayer.getString("experience").toInt()
+                level = jsonPlayer.getString("level").toInt()
+
+                playersList += Player(id, email, username, experience, level)
+            }
+        }
+    }
+
+    /**
+     * Function that sets room details according to the server response
+     */
     private fun setDetails(prettyJson: String?) {
         val jsonObj = prettyJson?.let { JSONObject(it) }
 
@@ -143,11 +198,11 @@ class RoomViewModel(tokenArgument: String, idArgument: Int) : ViewModel() {
         }
     }
 
-    /*
+    /**
      * Function that gets the player that is logged in
      * It is used to determine whether the current player
      * is administrator or participant
-     * */
+     */
     fun getSelfPlayer() {
         val jsonObject = JSONObject()
 
@@ -186,5 +241,140 @@ class RoomViewModel(tokenArgument: String, idArgument: Int) : ViewModel() {
                 }
             }
         }
+    }
+
+    /**
+     * Function that performs the join room operation
+     */
+    fun joinRoom() {
+        val headerMap = mutableMapOf<String, String>()
+        headerMap["Authorization"] = "Token $_token"
+
+        Log.i("RoomViewModel", _token)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = PlayersNeededApi.retrofitService.joinRoom(_idRoom.toString(), headerMap)
+
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    val gson = GsonBuilder().setPrettyPrinting().create()
+                    val prettyJson = gson.toJson(
+                        JsonParser.parseString(
+                            response.body()
+                                ?.string()
+                        )
+                    )
+
+                    Log.i("RoomViewModel", prettyJson)
+
+                    _joinRoomResult.value = true
+                }
+                else {
+                    Log.i("RoomViewModel", response.code().toString() + " "
+                            + response.message())
+
+                    _joinRoomResult.value = false
+                }
+            }
+        }
+    }
+
+    /**
+     * Function that performs the exit room operation
+     */
+    fun exitRoom() {
+        val headerMap = mutableMapOf<String, String>()
+        headerMap["Authorization"] = "Token $_token"
+
+        Log.i("RoomViewModel", _token)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = PlayersNeededApi.retrofitService.exitRoom(_idRoom.toString(), headerMap)
+
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    val gson = GsonBuilder().setPrettyPrinting().create()
+                    val prettyJson = gson.toJson(
+                        JsonParser.parseString(
+                            response.body()
+                                ?.string()
+                        )
+                    )
+
+                    Log.i("RoomViewModel", prettyJson)
+
+                    _exitRoomResult.value = true
+                }
+                else {
+                    Log.i("RoomViewModel", response.code().toString() + " "
+                            + response.message())
+
+                    _exitRoomResult.value = false
+                }
+            }
+        }
+    }
+
+    /**
+     * Function that performs the request for deleting a certain room
+     */
+    fun deleteRoom() {
+        val headerMap = mutableMapOf<String, String>()
+        headerMap["Authorization"] = "Token $_token"
+
+        Log.i("RoomViewModel", _token)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = PlayersNeededApi.retrofitService.deleteRoom(_idRoom.toString(),
+                headerMap)
+
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    Log.i("RoomViewModel", "Delete Request Successful")
+
+                    _deleteRoomResult.value = true
+                }
+                else {
+                    Log.i("RoomViewModel", response.code().toString() + " "
+                            + response.message())
+
+                    _deleteRoomResult.value = false
+                }
+            }
+        }
+    }
+
+    /**
+     * Function that checks if a certain player is in the list of players of that team
+     */
+    fun checkPlayerId(value: Int?): Boolean {
+        if (value != null) {
+            for (i in playersList.indices) {
+                if (playersList[i].id == value)
+                    return true
+            }
+        }
+        return false
+    }
+
+    /* reinitialization functions */
+    fun reinitializeDetailsResult() {
+        _getDetailsResult.value = false
+    }
+
+    fun reinitializeSelfPlayerResult() {
+        _getSelfPlayerResult.value = false
+    }
+
+    fun reinitializeJoinRoomResult() {
+        _joinRoomResult.value = false
+    }
+
+    fun reinitializeExitRoomResult() {
+        _joinRoomResult.value = false
+    }
+
+    fun reinitializeDeleteRoomResult() {
+        _deleteRoomResult.value = false
     }
 }

@@ -32,6 +32,18 @@ interface PlayersNeededApiService {
     suspend fun getRoom(@Path("roomId") roomId: String, @HeaderMap headers: Map<String,
             String>) : Response<ResponseBody>
 
+    @DELETE("/api/rooms/{roomId}")
+    suspend fun deleteRoom(@Path("roomId") roomId: String, @HeaderMap headers: Map<String,
+            String>) : Response<ResponseBody>
+
+    @POST("/api/rooms/{roomId}/join")
+    suspend fun joinRoom(@Path("roomId") roomId: String, @HeaderMap headers: Map<String,
+            String>) : Response<ResponseBody>
+
+    @POST("/api/rooms/{roomId}/exit")
+    suspend fun exitRoom(@Path("roomId") roomId: String, @HeaderMap headers: Map<String,
+            String>) : Response<ResponseBody>
+
     @GET("/api/players/self")
     suspend fun getSelfPlayer(@HeaderMap headers: Map<String, String>) : Response<ResponseBody>
 }

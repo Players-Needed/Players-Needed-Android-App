@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.osmdroid.config.Configuration
 import ro.pub.acs.playersneeded.databinding.FragmentYourRoomsBinding
 import ro.pub.acs.playersneeded.room.RoomAdapter
+import ro.pub.acs.playersneeded.roomscreen.RoomFragmentDirections
 import java.util.*
 
 
@@ -92,8 +94,12 @@ class YourRoomsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // go back to the previous screen (user home screen)
         binding.imageViewbackArrow.setOnClickListener {
-            findNavController().popBackStack()
+            val action =
+                YourRoomsFragmentDirections
+                    .actionYourRoomsFragmentToUserHomeScreenFragment3(viewModel.token)
+            NavHostFragment.findNavController(this).navigate(action)
         }
 
         val dialog = activity?.let { Dialog(it) }

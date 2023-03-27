@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ro.pub.acs.playersneeded.R
 import ro.pub.acs.playersneeded.databinding.FragmentUserHomeScreenBinding
 import ro.pub.acs.playersneeded.news.NewsAdapter
+import ro.pub.acs.playersneeded.roomscreen.RoomFragmentDirections
 
 
 class UserHomeScreenFragment : Fragment() {
@@ -69,7 +70,9 @@ class UserHomeScreenFragment : Fragment() {
         binding.joinRoomButton.setOnClickListener{ joinRoom() }
         binding.yourRoomsButton.setOnClickListener{ yourRooms() }
         binding.imageViewbackArrow.setOnClickListener {
-            findNavController().popBackStack()
+            val action =
+                UserHomeScreenFragmentDirections.actionUserHomeScreenFragmentToHomeScreenFragment()
+            NavHostFragment.findNavController(this).navigate(action)
         }
     }
 

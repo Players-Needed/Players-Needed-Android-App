@@ -97,4 +97,8 @@
     <string name="exitButton">Exit</string>
     <string name="editButton">Edit</string>
     <string name="deleteButton">Delete</string>
+
+    <!-- Player View -->
+    <string name="dummyPlayerImage">Dummy Player Image</string>
+    <string name="dummyPlayerDescription">Dummy Player Description</string>
 </resources>
