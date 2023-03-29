@@ -101,4 +101,15 @@
     <!-- Player View -->
     <string name="dummyPlayerImage">Dummy Player Image</string>
     <string name="dummyPlayerDescription">Dummy Player Description</string>
+
+    <!-- Edit Room -->
+
+    <!-- Player Details -->
+    <string name="dummyPlayerUsername">Username</string>
+    <string name="dummyPlayerFirstName">First Name</string>
+    <string name="dummyPlayerLastName">Last Name</string>
+    <string name="dummyPlayerExperience">Experience</string>
+    <string name="dummyPlayerLevel">Level</string>
+    <string name="editPlayerDetailsButton">Edit Details</string>
+    <string name="logOutPlayerButton">Log Out</string>
 </resources>

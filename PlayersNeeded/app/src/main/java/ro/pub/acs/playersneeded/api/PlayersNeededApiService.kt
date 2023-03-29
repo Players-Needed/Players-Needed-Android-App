@@ -46,6 +46,10 @@ interface PlayersNeededApiService {
 
     @GET("/api/players/self")
     suspend fun getSelfPlayer(@HeaderMap headers: Map<String, String>) : Response<ResponseBody>
+
+    @GET("/api/players/player/{username}")
+    suspend fun getPlayer(@Path("username") username: String, @HeaderMap headers: Map<String,
+            String>) : Response<ResponseBody>
 }
 
 object PlayersNeededApi {

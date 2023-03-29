@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_userHomeScreenFragment_to_homeScreenFragment"
             app:destination="@id/homeScreenFragment" />
+        <action
+            android:id="@+id/action_userHomeScreenFragment_to_playerFragment"
+            app:destination="@id/playerFragment" />
     </fragment>
     <fragment
         android:id="@+id/createRoomFragment"
@@ -109,5 +112,17 @@
         <action
             android:id="@+id/action_roomFragment_to_yourRoomsFragment"
             app:destination="@id/yourRoomsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/playerFragment"
+        android:name="ro.pub.acs.playersneeded.player.PlayerFragment"
+        android:label="PlayerFragment"
+        tools:layout="@layout/fragment_player">
+        <argument
+            android:name="username"
+            app:argType="string" />
+        <argument
+            android:name="token"
+            app:argType="string" />
     </fragment>
 </navigation>

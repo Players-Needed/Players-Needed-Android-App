@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#141517">
+
+    <TextView
+        android:id="@+id/filters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/filtersTextView"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/filterPreferenceInputRoomName"
+        android:layout_width="305dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:autofillHints="autofill_hints"
+        android:background="@drawable/round_corner_view_non_recycler"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center_horizontal|center_vertical"
+        android:hint="@string/roomName"
+        android:inputType="text"
+        android:textColor="#ffffff"
+        android:textColorHint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filters" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutSpinners"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filterPreferenceInputRoomName">
+
+        <Spinner
+            android:id="@+id/spinnerSport"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:background="@drawable/round_corner_view_non_recycler"
+            android:dropDownSelector="@android:drawable/alert_dark_frame"
+            android:spinnerMode="dropdown"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="NotSibling,SpeakableTextPresentCheck" />
+
+        <Spinner
+            android:id="@+id/spinnerSkillLevel"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/round_corner_view_non_recycler"
+            android:dropDownSelector="@android:drawable/alert_dark_frame"
+            android:spinnerMode="dropdown"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/spinnerSport"
+            tools:ignore="NotSibling,SpeakableTextPresentCheck" />
+
+        <ImageView
+            android:id="@+id/imageViewArrowDropDown"
+            android:layout_width="46dp"
+            android:layout_height="49dp"
+            android:contentDescription="@string/sport_dropdown_arrow_description"
+            app:layout_constraintEnd_toEndOf="@+id/spinnerSport"
+            app:layout_constraintTop_toTopOf="@+id/spinnerSport"
+            app:srcCompat="@drawable/baseline_arrow_drop_down_24"
+            tools:ignore="ImageContrastCheck" />
+
+        <ImageView
+            android:id="@+id/imageViewArrowDropDownSkillLevel"
+            android:layout_width="46dp"
+            android:layout_height="49dp"
+            android:contentDescription="@string/sport_dropdown_arrow_description"
+            app:layout_constraintEnd_toEndOf="@+id/spinnerSkillLevel"
+            app:layout_constraintTop_toTopOf="@+id/spinnerSkillLevel"
+            app:srcCompat="@drawable/baseline_arrow_drop_down_24"
+            tools:ignore="ImageContrastCheck" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutTimeStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutSpinners">
+
+        <TextView
+            android:id="@+id/textViewDateStart"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/round_corner_view_non_recycler"
+            android:gravity="center"
+            android:text="@string/roomDate"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/textViewTimeStart"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewTimeStart"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:background="@drawable/round_corner_view_non_recycler"
+            android:gravity="center"
+            android:text="@string/roomTime"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutTimeEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutTimeStart">
+
+        <TextView
+            android:id="@+id/textViewDateEnd"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/round_corner_view_non_recycler"
+            android:gravity="center"
+            android:text="@string/roomDate"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/textViewTimeEnd"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewTimeEnd"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:background="@drawable/round_corner_view_non_recycler"
+            android:gravity="center"
+            android:text="@string/roomTime"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/applyFiltersButton"
+        android:layout_width="197dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/round_corner_view_non_recycler"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/applyFilters"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutTimeEnd">
+    </androidx.appcompat.widget.AppCompatButton>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

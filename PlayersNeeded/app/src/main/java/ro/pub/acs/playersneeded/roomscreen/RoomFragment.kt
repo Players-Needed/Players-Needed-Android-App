@@ -20,7 +20,6 @@ import org.osmdroid.config.Configuration
 import ro.pub.acs.playersneeded.R
 import ro.pub.acs.playersneeded.databinding.FragmentRoomBinding
 import ro.pub.acs.playersneeded.player.PlayerAdapter
-import ro.pub.acs.playersneeded.roomcreation.CreateRoomFragmentDirections
 
 /**
  * Class used to reflect the room fragment, the screen that

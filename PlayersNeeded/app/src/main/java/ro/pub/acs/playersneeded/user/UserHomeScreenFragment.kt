@@ -19,7 +19,11 @@ import ro.pub.acs.playersneeded.databinding.FragmentUserHomeScreenBinding
 import ro.pub.acs.playersneeded.news.NewsAdapter
 import ro.pub.acs.playersneeded.roomscreen.RoomFragmentDirections
 
-
+/**
+ * Class used to define the landing screen for a user that is
+ * already logged in, or for a user that has just signed up or
+ * logged in.
+ */
 class UserHomeScreenFragment : Fragment() {
     private lateinit var viewModel: UserHomeScreenViewModel
     private lateinit var viewModelFactory: UserHomeScreenViewModelFactory
@@ -36,14 +40,33 @@ class UserHomeScreenFragment : Fragment() {
             inflater, R.layout.fragment_user_home_screen, container,
             false)
 
+        // display the available news for a certain user
+        displayNews()
+
+        // get data about the current user
+        viewModel.getSelfPlayer()
+
+        setHasOptionsMenu(false)
+        return binding.root
+    }
+
+    /**
+     * This function is used to fetch the news from an API
+     * and display them using a recycler view
+     */
+    private fun displayNews() {
+        // TODO fetch the news from an API
+
         viewModelFactory = UserHomeScreenViewModelFactory(UserHomeScreenFragmentArgs.fromBundle
-            (requireArguments()).token!!)
+            (requireArguments()).token)
         viewModel = ViewModelProvider(this, viewModelFactory)[UserHomeScreenViewModel::class.java]
 
         newsRecyclerView = binding.newsRecyclerView
         newsRecyclerView.layoutManager = LinearLayoutManager(context)
         newsRecyclerView.setHasFixedSize(true)
 
+        // introduce some space inside the recycler view between
+        // each news view
         val dividerItemDecoration =
             DividerItemDecoration(newsRecyclerView.context, DividerItemDecoration.VERTICAL)
         dividerItemDecoration.setDrawable(
@@ -55,9 +78,6 @@ class UserHomeScreenFragment : Fragment() {
 
         adapter = NewsAdapter(viewModel.newsList)
         newsRecyclerView.adapter = adapter
-
-        setHasOptionsMenu(false)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,13 +86,45 @@ class UserHomeScreenFragment : Fragment() {
         binding.homeScreenViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.createRoomButton.setOnClickListener{ createRoom() }
-        binding.joinRoomButton.setOnClickListener{ joinRoom() }
-        binding.yourRoomsButton.setOnClickListener{ yourRooms() }
+        // create room button action
+        // transition to create room fragment
+        binding.createRoomButton.setOnClickListener{
+            createRoom()
+        }
+
+        // join room button action
+        // transition to join room fragment
+        binding.joinRoomButton.setOnClickListener{
+            joinRoom()
+        }
+
+        // your rooms button action
+        // transition to your rooms fragment
+        binding.yourRoomsButton.setOnClickListener{
+            yourRooms()
+        }
+
+        // go back arrow action
+        // transition to home screen
         binding.imageViewbackArrow.setOnClickListener {
             val action =
                 UserHomeScreenFragmentDirections.actionUserHomeScreenFragmentToHomeScreenFragment()
             NavHostFragment.findNavController(this).navigate(action)
+        }
+
+        // player icon action
+        // transition to player fragment
+        binding.playerIcon.setOnClickListener {
+            val action =
+                viewModel.usernamePlayer.value?.let { it1 ->
+                    UserHomeScreenFragmentDirections
+                        .actionUserHomeScreenFragmentToPlayerFragment(
+                            it1,
+                            viewModel.token)
+                }
+            if (action != null) {
+                NavHostFragment.findNavController(this).navigate(action)
+            }
         }
     }
 
