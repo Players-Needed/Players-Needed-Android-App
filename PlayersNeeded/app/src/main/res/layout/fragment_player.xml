@@ -94,7 +94,7 @@
             android:id="@+id/playerDetailsConstraintLayout"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/round_corner_view_recycler"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -181,6 +181,33 @@
                 app:layout_constraintTop_toBottomOf="@+id/textPlayerLastName" />
 
             <TextView
+                android:id="@+id/textPlayerEmail"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical"
+                android:text="@string/dummyPlayerEmail"
+                android:textColor="#847c8c"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textPlayerUsername" />
+
+            <TextView
+                android:id="@+id/playerEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textPlayerUsername" />
+
+            <TextView
                 android:id="@+id/textPlayerLevel"
                 android:layout_width="160dp"
                 android:layout_height="50dp"
@@ -192,7 +219,7 @@
                 android:textColor="#847c8c"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textPlayerUsername" />
+                app:layout_constraintTop_toBottomOf="@+id/textPlayerEmail" />
 
             <TextView
                 android:id="@+id/playerLevel"
@@ -205,7 +232,7 @@
                 android:textColor="#ffffff"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textPlayerUsername" />
+                app:layout_constraintTop_toBottomOf="@+id/textPlayerEmail" />
 
             <TextView
                 android:id="@+id/textPlayerExperience"
@@ -257,7 +284,7 @@
             android:layout_width="152dp"
             android:layout_height="54dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="30dp"
             android:background="@drawable/round_corner_view_non_recycler"
             android:fontFamily="@font/roboto_medium"
             android:text="@string/logOutPlayerButton"
@@ -266,6 +293,38 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/playerDetailsConstraintLayout">
+        </androidx.appcompat.widget.AppCompatButton>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/deleteAccount"
+            android:layout_width="152dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="30dp"
+            android:background="@drawable/round_corner_view_non_recycler"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/deleteAccountButton"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logOutPlayer">
+        </androidx.appcompat.widget.AppCompatButton>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/changePassword"
+            android:layout_width="152dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/round_corner_view_non_recycler"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/changePasswordButton"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logOutPlayer">
         </androidx.appcompat.widget.AppCompatButton>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

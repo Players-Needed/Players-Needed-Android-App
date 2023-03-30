@@ -1,12 +1,16 @@
 package ro.pub.acs.playersneeded.player
 
+import android.app.Dialog
 import android.os.Bundle
 import android.os.StrictMode
 import android.preference.PreferenceManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -50,7 +54,7 @@ class PlayerFragment : Fragment() {
         // get the player that is logged in
         viewModel.getSelfPlayer()
 
-        // get details about the player whose id we have already
+        // get details about the player whose name we have already
         viewModel.getPlayer()
 
         setHasOptionsMenu(false)
@@ -60,6 +64,9 @@ class PlayerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // create dialog instance - mainly for setting details
+        val dialog = activity?.let { Dialog(it) }
+
         // Go back arrow action
         binding.imageViewbackArrow.setOnClickListener {
             findNavController().popBackStack()
@@ -68,6 +75,26 @@ class PlayerFragment : Fragment() {
         // Hide keyboard when clicking anywhere on the layout
         binding.playerScreenConstraintLayout.setOnClickListener {
             hideSoftKeyboard(it)
+        }
+
+        // handle edit details button action
+        binding.editPlayerDetails.setOnClickListener {
+            editPlayerDetails(dialog)
+        }
+
+        // handle logout button action
+        binding.logOutPlayer.setOnClickListener {
+            viewModel.logOutPlayer()
+        }
+
+        // handle delete account button action
+        binding.deleteAccount.setOnClickListener {
+            viewModel.deleteAccountPlayer()
+        }
+
+        // handle change password button action
+        binding.changePassword.setOnClickListener {
+            viewModel.changePasswordPlayer()
         }
 
         // track the result of the GET request for logged in player info
@@ -85,6 +112,58 @@ class PlayerFragment : Fragment() {
                 viewModel.reinitializePlayerResult()
             }
         }
+
+        // track the result of the PUT request for player info
+        viewModel.editPlayerDetailsResult.observe(viewLifecycleOwner) {
+            if (it) {
+                setTextViewPlayerDetails()
+                viewModel.reinitializeEditPlayerDetailsResult()
+            }
+        }
+    }
+
+    /**
+     * Function used to display a dialog window in order to set the new
+     * user details
+     */
+    private fun editPlayerDetails(dialog: Dialog?) {
+        dialog?.setContentView(ro.pub.acs.playersneeded.R.layout.fragment_edit_player_details);
+        if (dialog != null) {
+            dialog.window?.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+        };
+        dialog?.setCancelable(true)
+        dialog?.show()
+
+        val saveChangesButton = dialog?.findViewById(ro.pub.acs.playersneeded.R.id
+            .applyChangesButton) as Button
+
+        val newUsername = dialog.findViewById(ro.pub.acs.playersneeded.R.id
+            .editUsername) as TextView
+        val newFirstName = dialog.findViewById(ro.pub.acs.playersneeded.R.id
+            .editFirstName) as TextView
+        val newLastName = dialog.findViewById(ro.pub.acs.playersneeded.R.id
+            .editLastName) as TextView
+        val newEmail = dialog.findViewById(ro.pub.acs.playersneeded.R.id
+            .editEmail) as TextView
+
+        saveChangesButton.setOnClickListener {
+//            if (newFirstName.length() != 0)
+//                binding.playerFirstName.text = newFirstName.text
+//            if (newLastName.length() != 0)
+//                binding.playerLastName.text = newLastName.text
+//            if (newUsername.length() != 0)
+//                binding.playerUsername.text = newUsername.text
+//            if (newEmail.length() != 0)
+//                binding.playerEmail.text = newEmail.text
+
+            dialog.hide()
+
+            viewModel.editPlayerDetails(newFirstName.text, newLastName.text, newUsername.text,
+                newEmail.text)
+        }
     }
 
     /**
@@ -92,13 +171,10 @@ class PlayerFragment : Fragment() {
      * of the user that is viewed
      */
     private fun setTextViewPlayerDetails() {
-        /* TODO - decomment these lines and delete the following two
         binding.playerFirstName.text = viewModel.firstNamePlayer.value
         binding.playerLastName.text = viewModel.lastNamePlayer.value
-        */
-        binding.playerFirstName.text = "Dorian"
-        binding.playerLastName.text = "Verna"
         binding.playerUsername.text = viewModel.usernamePlayer
+        binding.playerEmail.text = viewModel.emailPlayer.value
         binding.playerLevel.text = viewModel.levelPlayer.value.toString()
         binding.playerExperience.text = viewModel.experiencePlayer.value.toString()
     }
@@ -108,12 +184,18 @@ class PlayerFragment : Fragment() {
      * from the current page
      */
     private fun setButtons() {
+        Log.i("Player Fragment", viewModel.usernamePlayer + " " + viewModel.usernameSelfPlayer.value)
+
         if (viewModel.usernamePlayer == viewModel.usernameSelfPlayer.value) {
             binding.editPlayerDetails.visibility = View.VISIBLE
             binding.logOutPlayer.visibility = View.VISIBLE
+            binding.deleteAccount.visibility = View.VISIBLE
+            binding.changePassword.visibility = View.VISIBLE
         } else {
             binding.editPlayerDetails.visibility = View.GONE
             binding.logOutPlayer.visibility = View.GONE
+            binding.deleteAccount.visibility = View.GONE
+            binding.changePassword.visibility = View.GONE
         }
     }
 

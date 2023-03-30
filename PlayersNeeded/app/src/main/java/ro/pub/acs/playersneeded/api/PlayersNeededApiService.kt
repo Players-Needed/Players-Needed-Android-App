@@ -20,9 +20,12 @@ interface PlayersNeededApiService {
     @POST("/api/auth/register/")
     suspend fun register(@Body requestBody: RequestBody) : Response<ResponseBody>
 
+    @POST("/api/rooms/logout")
+    suspend fun logout(@HeaderMap headers: Map<String, String>) : Response<ResponseBody>
+
     @POST("/api/rooms/")
-    suspend fun createRoom(@HeaderMap headers: Map<String, String>, @Body requestBody: RequestBody) :
-            Response<ResponseBody>
+    suspend fun createRoom(@HeaderMap headers: Map<String, String>,
+                           @Body requestBody: RequestBody) : Response<ResponseBody>
 
     @GET("/api/rooms")
     suspend fun getRooms(@QueryMap params: Map<String, String>, @HeaderMap headers: Map<String,
@@ -44,12 +47,21 @@ interface PlayersNeededApiService {
     suspend fun exitRoom(@Path("roomId") roomId: String, @HeaderMap headers: Map<String,
             String>) : Response<ResponseBody>
 
+    /*
+     * Player requests
+     */
+
     @GET("/api/players/self")
     suspend fun getSelfPlayer(@HeaderMap headers: Map<String, String>) : Response<ResponseBody>
 
     @GET("/api/players/player/{username}")
-    suspend fun getPlayer(@Path("username") username: String, @HeaderMap headers: Map<String,
-            String>) : Response<ResponseBody>
+    suspend fun getPlayer(@Path("username") username: String,
+                          @HeaderMap headers: Map<String, String>) : Response<ResponseBody>
+
+    @PUT("/api/players/player/{username}")
+    suspend fun editPlayerDetails(@Path("username") username: String,
+                          @HeaderMap headers: Map<String, String>,
+                          @Body requestBody: RequestBody) : Response<ResponseBody>
 }
 
 object PlayersNeededApi {
