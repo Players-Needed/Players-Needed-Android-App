@@ -67,9 +67,15 @@
         <argument
             android:name="token"
             app:argType="string" />
+        <argument
+            android:name="usernamePlayer"
+            app:argType="string" />
         <action
             android:id="@+id/action_createRoomFragment_to_roomFragment"
             app:destination="@id/roomFragment" />
+        <action
+            android:id="@+id/action_createRoomFragment_to_playerFragment"
+            app:destination="@id/playerFragment" />
     </fragment>
     <fragment
         android:id="@+id/yourRoomsFragment"
@@ -79,12 +85,18 @@
         <argument
             android:name="token"
             app:argType="string" />
+        <argument
+            android:name="usernamePlayer"
+            app:argType="string" />
         <action
             android:id="@+id/action_yourRoomsFragment_to_roomFragment"
             app:destination="@id/roomFragment" />
         <action
             android:id="@+id/action_yourRoomsFragment_to_userHomeScreenFragment3"
             app:destination="@id/userHomeScreenFragment" />
+        <action
+            android:id="@+id/action_yourRoomsFragment_to_playerFragment"
+            app:destination="@id/playerFragment" />
     </fragment>
     <fragment
         android:id="@+id/joinRoomFragment"
@@ -94,9 +106,15 @@
         <argument
             android:name="token"
             app:argType="string" />
+        <argument
+            android:name="usernamePlayer"
+            app:argType="string" />
         <action
             android:id="@+id/action_joinRoomFragment_to_roomFragment"
             app:destination="@id/roomFragment" />
+        <action
+            android:id="@+id/action_joinRoomFragment_to_playerFragment"
+            app:destination="@id/playerFragment" />
     </fragment>
     <fragment
         android:id="@+id/roomFragment"
@@ -109,9 +127,15 @@
         <argument
             android:name="token"
             app:argType="string" />
+        <argument
+            android:name="usernamePlayer"
+            app:argType="string" />
         <action
             android:id="@+id/action_roomFragment_to_yourRoomsFragment"
             app:destination="@id/yourRoomsFragment" />
+        <action
+            android:id="@+id/action_roomFragment_to_playerFragment"
+            app:destination="@id/playerFragment" />
     </fragment>
     <fragment
         android:id="@+id/playerFragment"
@@ -124,5 +148,8 @@
         <argument
             android:name="token"
             app:argType="string" />
+        <action
+            android:id="@+id/action_playerFragment_to_homeScreenFragment"
+            app:destination="@id/homeScreenFragment" />
     </fragment>
 </navigation>

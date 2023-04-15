@@ -40,6 +40,7 @@ import org.osmdroid.views.overlay.Overlay
 import ro.pub.acs.playersneeded.R
 import ro.pub.acs.playersneeded.databinding.FragmentCreateRoomBinding
 import ro.pub.acs.playersneeded.login.LogInFragmentDirections
+import ro.pub.acs.playersneeded.user.UserHomeScreenFragmentDirections
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -71,8 +72,8 @@ class CreateRoomFragment : Fragment() {
             false)
 
         viewModelFactory = CreateRoomViewModelFactory(
-            CreateRoomFragmentArgs.fromBundle
-            (requireArguments()).token)
+            CreateRoomFragmentArgs.fromBundle(requireArguments()).token,
+            CreateRoomFragmentArgs.fromBundle(requireArguments()).usernamePlayer)
         viewModel = ViewModelProvider(this, viewModelFactory)[CreateRoomViewModel::class.java]
 
         /* set up the dropdown for selecting the sport type */
@@ -185,6 +186,14 @@ class CreateRoomFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+        // player icon action
+        // transition to player fragment
+        binding.playerIcon.setOnClickListener {
+            val action = CreateRoomFragmentDirections
+                .actionCreateRoomFragmentToPlayerFragment(viewModel.usernamePlayer, viewModel.token)
+            NavHostFragment.findNavController(this).navigate(action)
+        }
+
         viewModel.createRoomResult.observe(viewLifecycleOwner) { roomCreated ->
             navigateToRoomScreen(roomCreated)
         }
@@ -196,7 +205,8 @@ class CreateRoomFragment : Fragment() {
             val id = viewModel.roomId
 
             val action =
-                CreateRoomFragmentDirections.actionCreateRoomFragmentToRoomFragment(id, token)
+                CreateRoomFragmentDirections.actionCreateRoomFragmentToRoomFragment(id, token,
+                    viewModel.usernamePlayer)
             NavHostFragment.findNavController(this).navigate(action)
         } else {
             val errorToast = Toast.makeText(

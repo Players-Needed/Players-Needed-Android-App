@@ -19,7 +19,8 @@ import ro.pub.acs.playersneeded.joinroom.JoinRoomFragmentDirections
 class PlayerAdapter(
     private val playerList: Array<Player>,
     private val token: String,
-    private val fragment: Fragment
+    private val fragment: Fragment,
+    private val usernamePlayer: String
 ) :
     RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
     class PlayerViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -43,7 +44,7 @@ class PlayerAdapter(
         holder.itemView.setOnClickListener {
             val action =
                 JoinRoomFragmentDirections
-                    .actionJoinRoomFragmentToRoomFragment(currentItem.id, token)
+                    .actionJoinRoomFragmentToRoomFragment(currentItem.id, token, usernamePlayer)
             NavHostFragment.findNavController(fragment).navigate(action)
         }
     }

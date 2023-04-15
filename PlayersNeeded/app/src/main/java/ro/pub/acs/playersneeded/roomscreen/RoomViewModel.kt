@@ -18,12 +18,16 @@ import ro.pub.acs.playersneeded.player.Player
  * This class implements the logic behind the room fragment
  * screen (API requests and live data operations)
  */
-class RoomViewModel(tokenArgument: String, idArgument: Int) : ViewModel() {
+class RoomViewModel(tokenArgument: String, idArgument: Int, usernameArg: String) : ViewModel() {
     lateinit var playersList : Array<Player>
 
     private var _token = tokenArgument
     val token: String
         get() = _token
+
+    private var _usernamePlayer = usernameArg
+    val usernamePlayer: String
+        get() = _usernamePlayer
 
     private var _idRoom = idArgument
     val idRoom: Int

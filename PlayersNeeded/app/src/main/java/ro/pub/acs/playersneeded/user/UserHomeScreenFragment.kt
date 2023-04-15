@@ -86,22 +86,35 @@ class UserHomeScreenFragment : Fragment() {
         binding.homeScreenViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        // create room button action
-        // transition to create room fragment
-        binding.createRoomButton.setOnClickListener{
-            createRoom()
-        }
+        viewModel.getSelfPlayerResult.observe(viewLifecycleOwner) {
+            if (viewModel.getSelfPlayerResult.value == true) {
+                // create room button action
+                // transition to create room fragment
+                binding.createRoomButton.setOnClickListener{
+                    createRoom()
+                }
 
-        // join room button action
-        // transition to join room fragment
-        binding.joinRoomButton.setOnClickListener{
-            joinRoom()
-        }
+                // join room button action
+                // transition to join room fragment
+                binding.joinRoomButton.setOnClickListener{
+                    joinRoom()
+                }
 
-        // your rooms button action
-        // transition to your rooms fragment
-        binding.yourRoomsButton.setOnClickListener{
-            yourRooms()
+                // your rooms button action
+                // transition to your rooms fragment
+                binding.yourRoomsButton.setOnClickListener{
+                    yourRooms()
+                }
+
+                // player icon action
+                // transition to player fragment
+                binding.playerIcon.setOnClickListener {
+                    val action = UserHomeScreenFragmentDirections
+                        .actionUserHomeScreenFragmentToPlayerFragment(
+                            viewModel.usernamePlayer.value!!, viewModel.token)
+                    NavHostFragment.findNavController(this).navigate(action)
+                }
+            }
         }
 
         // go back arrow action
@@ -111,41 +124,29 @@ class UserHomeScreenFragment : Fragment() {
                 UserHomeScreenFragmentDirections.actionUserHomeScreenFragmentToHomeScreenFragment()
             NavHostFragment.findNavController(this).navigate(action)
         }
-
-        // player icon action
-        // transition to player fragment
-        binding.playerIcon.setOnClickListener {
-            val action =
-                viewModel.usernamePlayer.value?.let { it1 ->
-                    UserHomeScreenFragmentDirections
-                        .actionUserHomeScreenFragmentToPlayerFragment(
-                            it1,
-                            viewModel.token)
-                }
-            if (action != null) {
-                NavHostFragment.findNavController(this).navigate(action)
-            }
-        }
     }
 
     private fun yourRooms() {
         val action =
             UserHomeScreenFragmentDirections
-                .actionUserHomeScreenFragmentToYourRoomsFragment(viewModel.token)
+                .actionUserHomeScreenFragmentToYourRoomsFragment(viewModel.token,
+                    viewModel.usernamePlayer.value!!)
         NavHostFragment.findNavController(this).navigate(action)
     }
 
     private fun joinRoom() {
         val action =
             UserHomeScreenFragmentDirections
-                .actionUserHomeScreenFragmentToJoinRoomFragment(viewModel.token)
+                .actionUserHomeScreenFragmentToJoinRoomFragment(viewModel.token,
+                    viewModel.usernamePlayer.value!!)
         NavHostFragment.findNavController(this).navigate(action)
     }
 
     private fun createRoom() {
         val action =
             UserHomeScreenFragmentDirections
-                .actionUserHomeScreenFragmentToCreateRoomFragment(viewModel.token)
+                .actionUserHomeScreenFragmentToCreateRoomFragment(viewModel.token,
+                    viewModel.usernamePlayer.value!!)
         NavHostFragment.findNavController(this).navigate(action)
     }
 }

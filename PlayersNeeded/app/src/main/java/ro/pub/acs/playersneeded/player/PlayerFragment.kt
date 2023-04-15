@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import org.osmdroid.config.Configuration
 import ro.pub.acs.playersneeded.databinding.FragmentPlayerBinding
@@ -94,7 +95,7 @@ class PlayerFragment : Fragment() {
 
         // handle change password button action
         binding.changePassword.setOnClickListener {
-            viewModel.changePasswordPlayer()
+            showDialogChangePassword(dialog)
         }
 
         // track the result of the GET request for logged in player info
@@ -119,6 +120,63 @@ class PlayerFragment : Fragment() {
                 setTextViewPlayerDetails()
                 viewModel.reinitializeEditPlayerDetailsResult()
             }
+        }
+
+        // track the result of the POST request for logging out the player
+        viewModel.logOutPlayerResult.observe(viewLifecycleOwner) {
+            if (it) {
+                viewModel.reinitializeLogOutPlayerResult()
+                val action =
+                    PlayerFragmentDirections.actionPlayerFragmentToHomeScreenFragment()
+                NavHostFragment.findNavController(this).navigate(action)
+            }
+        }
+
+        // track the result of the DELETE request for deleting a players account
+        viewModel.deleteAccountPlayerResult.observe(viewLifecycleOwner) {
+            if (it) {
+                viewModel.reinitializeDeleteAccountPlayerResult()
+                val action =
+                    PlayerFragmentDirections.actionPlayerFragmentToHomeScreenFragment()
+                NavHostFragment.findNavController(this).navigate(action)
+            }
+        }
+
+        // track the result of the POST request for changing the password of a players account
+        viewModel.changePasswordPlayerResult.observe(viewLifecycleOwner) {
+            if (it) {
+                viewModel.reinitializeChangePasswordPlayerResult()
+            }
+        }
+    }
+
+    /**
+     * Function used to display a dialog window in order to set the new
+     * user password
+     */
+    private fun showDialogChangePassword(dialog: Dialog?) {
+        dialog?.setContentView(ro.pub.acs.playersneeded.R.layout.fragment_change_password);
+        if (dialog != null) {
+            dialog.window?.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+        };
+        dialog?.setCancelable(true)
+        dialog?.show()
+
+        val saveChangesButton = dialog?.findViewById(ro.pub.acs.playersneeded.R.id
+            .applyPasswordChangesButton) as Button
+
+        val newPassword = dialog.findViewById(ro.pub.acs.playersneeded.R.id
+            .newPassword) as TextView
+        val confirmNewPassword = dialog.findViewById(ro.pub.acs.playersneeded.R.id
+            .confirmNewPassword) as TextView
+
+        saveChangesButton.setOnClickListener {
+            dialog.hide()
+
+            viewModel.changePasswordPlayer(newPassword.text, confirmNewPassword.text)
         }
     }
 
@@ -150,15 +208,6 @@ class PlayerFragment : Fragment() {
             .editEmail) as TextView
 
         saveChangesButton.setOnClickListener {
-//            if (newFirstName.length() != 0)
-//                binding.playerFirstName.text = newFirstName.text
-//            if (newLastName.length() != 0)
-//                binding.playerLastName.text = newLastName.text
-//            if (newUsername.length() != 0)
-//                binding.playerUsername.text = newUsername.text
-//            if (newEmail.length() != 0)
-//                binding.playerEmail.text = newEmail.text
-
             dialog.hide()
 
             viewModel.editPlayerDetails(newFirstName.text, newLastName.text, newUsername.text,

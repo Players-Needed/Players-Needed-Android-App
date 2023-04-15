@@ -20,6 +20,7 @@ import org.osmdroid.config.Configuration
 import ro.pub.acs.playersneeded.R
 import ro.pub.acs.playersneeded.databinding.FragmentRoomBinding
 import ro.pub.acs.playersneeded.player.PlayerAdapter
+import ro.pub.acs.playersneeded.roomcreation.CreateRoomFragmentDirections
 
 /**
  * Class used to reflect the room fragment, the screen that
@@ -50,7 +51,8 @@ class RoomFragment : Fragment() {
 
         viewModelFactory = RoomViewModelFactory(
             RoomFragmentArgs.fromBundle(requireArguments()).token,
-            RoomFragmentArgs.fromBundle(requireArguments()).id
+            RoomFragmentArgs.fromBundle(requireArguments()).id,
+            RoomFragmentArgs.fromBundle(requireArguments()).usernamePlayer,
         )
         viewModel = ViewModelProvider(this, viewModelFactory)[RoomViewModel::class.java]
 
@@ -131,11 +133,20 @@ class RoomFragment : Fragment() {
         viewModel.deleteRoomResult.observe(viewLifecycleOwner) {
             if (it) {
                 val action =
-                    RoomFragmentDirections.actionRoomFragmentToYourRoomsFragment(viewModel.token)
+                    RoomFragmentDirections.actionRoomFragmentToYourRoomsFragment(viewModel.token,
+                        viewModel.usernamePlayer)
                 NavHostFragment.findNavController(this).navigate(action)
                 viewModel.getSelfPlayer()
                 viewModel.reinitializeDeleteRoomResult()
             }
+        }
+
+        // player icon action
+        // transition to player fragment
+        binding.playerIcon.setOnClickListener {
+            val action = RoomFragmentDirections
+                .actionRoomFragmentToPlayerFragment(viewModel.usernamePlayer, viewModel.token)
+            NavHostFragment.findNavController(this).navigate(action)
         }
 
         // the logic for the three buttons (overview, players, chat)
@@ -178,7 +189,8 @@ class RoomFragment : Fragment() {
      * the room detail GET request succeeds
      */
     private fun setPlayerAdapter() {
-        adapter = PlayerAdapter(viewModel.playersList, viewModel.token, this)
+        adapter = PlayerAdapter(viewModel.playersList, viewModel.token, this,
+            viewModel.usernamePlayer)
         playerRecyclerView.adapter = adapter
     }
 

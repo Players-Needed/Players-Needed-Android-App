@@ -14,14 +14,23 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface PlayersNeededApiService {
+
+    /*
+     * Auth requests
+     */
+
     @POST("/api/auth/login/")
     suspend fun login(@Body requestBody: RequestBody) : Response<ResponseBody>
 
     @POST("/api/auth/register/")
     suspend fun register(@Body requestBody: RequestBody) : Response<ResponseBody>
 
-    @POST("/api/rooms/logout")
+    @POST("/api/auth/logout")
     suspend fun logout(@HeaderMap headers: Map<String, String>) : Response<ResponseBody>
+
+    /*
+     * Room requests
+     */
 
     @POST("/api/rooms/")
     suspend fun createRoom(@HeaderMap headers: Map<String, String>,
@@ -62,6 +71,15 @@ interface PlayersNeededApiService {
     suspend fun editPlayerDetails(@Path("username") username: String,
                           @HeaderMap headers: Map<String, String>,
                           @Body requestBody: RequestBody) : Response<ResponseBody>
+
+    @DELETE("/api/players/player/{username}")
+    suspend fun deletePlayer(@Path("username") username: String,
+                          @HeaderMap headers: Map<String, String>) : Response<ResponseBody>
+
+    @POST("/api/players/self/change_password")
+    suspend fun changePasswordPlayer(@HeaderMap headers: Map<String, String>,
+                                     @Body requestBody: RequestBody) : Response<ResponseBody>
+
 }
 
 object PlayersNeededApi {

@@ -17,12 +17,16 @@ import org.json.JSONObject
 import ro.pub.acs.playersneeded.api.PlayersNeededApi
 import ro.pub.acs.playersneeded.room.Room
 
-class YourRoomsViewModel(tokenArgument: String) : ViewModel() {
+class YourRoomsViewModel(tokenArgument: String, usernameArg: String) : ViewModel() {
     var roomList : Array<Room> = arrayOf()
 
     private var _token = tokenArgument
     val token: String
         get() = _token
+
+    private var _usernamePlayer = usernameArg
+    val usernamePlayer: String
+        get() = _usernamePlayer
 
     private val _eventDataSuccess = MutableLiveData<Boolean>()
     val eventDataSuccess: LiveData<Boolean>

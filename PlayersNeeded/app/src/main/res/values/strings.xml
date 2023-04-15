@@ -117,4 +117,8 @@
     <string name="changePasswordButton">Change Password</string>
     <string name="saveChangesButton">Save Changes</string>
     <string name="detailsPlayer">Enter New Details</string>
+    <string name="changePassword">Change Password</string>
+    <string name="oldPassword">Old Password</string>
+    <string name="newPassword">New Password</string>
+    <string name="confirmNewPassword">Confirm New Password</string>
 </resources>
