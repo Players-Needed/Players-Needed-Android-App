@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.osmdroid.config.Configuration
 import ro.pub.acs.playersneeded.databinding.FragmentYourRoomsBinding
 import ro.pub.acs.playersneeded.room.RoomAdapter
+import ro.pub.acs.playersneeded.roomcreation.CreateRoomFragmentDirections
 import ro.pub.acs.playersneeded.roomscreen.RoomFragmentDirections
 import java.util.*
 
@@ -57,8 +58,8 @@ class YourRoomsFragment : Fragment() {
             false)
 
         viewModelFactory = YourRoomsViewModelFactory(
-            YourRoomsFragmentArgs.fromBundle
-                (requireArguments()).token)
+            YourRoomsFragmentArgs.fromBundle(requireArguments()).token,
+            YourRoomsFragmentArgs.fromBundle(requireArguments()).usernamePlayer)
         viewModel = ViewModelProvider(this, viewModelFactory)[YourRoomsViewModel::class.java]
 
         roomRecyclerView = binding.roomRecyclerView
@@ -81,7 +82,8 @@ class YourRoomsFragment : Fragment() {
 
                 Log.i("YourRoomsFragment", "Pulled available rooms")
 
-                adapter = RoomAdapter(viewModel.roomList, viewModel.token, this)
+                adapter = RoomAdapter(viewModel.roomList, viewModel.token, this,
+                    viewModel.usernamePlayer)
                 roomRecyclerView.adapter = adapter
                 viewModel.roomDataGot()
             }
@@ -106,6 +108,14 @@ class YourRoomsFragment : Fragment() {
 
         binding.textViewPreferences.setOnClickListener {
             setPreferences(it, dialog)
+        }
+
+        // player icon action
+        // transition to player fragment
+        binding.playerIcon.setOnClickListener {
+            val action = YourRoomsFragmentDirections
+                .actionYourRoomsFragmentToPlayerFragment(viewModel.usernamePlayer, viewModel.token)
+            NavHostFragment.findNavController(this).navigate(action)
         }
 
         binding.yourRoomsConstraintLayout.setOnClickListener {

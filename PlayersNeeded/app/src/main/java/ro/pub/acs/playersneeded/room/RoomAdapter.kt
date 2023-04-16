@@ -20,7 +20,8 @@ import ro.pub.acs.playersneeded.yourrooms.YourRoomsFragmentDirections
 class RoomAdapter(
     private val roomList: Array<Room>,
     private val token: String,
-    private val fragment: Fragment
+    private val fragment: Fragment,
+    private val usernamePlayer: String
 ) :
     RecyclerView.Adapter<RoomAdapter.RoomViewHolder>() {
     class RoomViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -61,17 +62,17 @@ class RoomAdapter(
             if (fragment is JoinRoomFragment) {
                 val action =
                     JoinRoomFragmentDirections
-                        .actionJoinRoomFragmentToRoomFragment(currentItem.id, token)
+                        .actionJoinRoomFragmentToRoomFragment(currentItem.id, token, usernamePlayer)
                 NavHostFragment.findNavController(fragment).navigate(action)
             } else if (fragment is YourRoomsFragment) {
                 val action =
                     YourRoomsFragmentDirections
-                        .actionYourRoomsFragmentToRoomFragment(currentItem.id, token)
+                        .actionYourRoomsFragmentToRoomFragment(currentItem.id, token, usernamePlayer)
                 NavHostFragment.findNavController(fragment).navigate(action)
             } else if (fragment is CreateRoomFragment) {
                 val action =
                     CreateRoomFragmentDirections
-                        .actionCreateRoomFragmentToRoomFragment(currentItem.id, token)
+                        .actionCreateRoomFragmentToRoomFragment(currentItem.id, token, usernamePlayer)
                 NavHostFragment.findNavController(fragment).navigate(action)
             }
         }

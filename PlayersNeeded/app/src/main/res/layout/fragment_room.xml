@@ -64,7 +64,7 @@
                     app:srcCompat="@drawable/sports" />
 
                 <ImageView
-                    android:id="@+id/roomImage"
+                    android:id="@+id/playerIcon"
                     android:layout_width="46dp"
                     android:layout_height="49dp"
                     android:layout_marginEnd="8dp"

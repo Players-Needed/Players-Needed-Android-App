@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +31,7 @@ import org.osmdroid.config.Configuration
 import ro.pub.acs.playersneeded.R
 import ro.pub.acs.playersneeded.databinding.FragmentJoinRoomBinding
 import ro.pub.acs.playersneeded.room.RoomAdapter
+import ro.pub.acs.playersneeded.roomcreation.CreateRoomFragmentDirections
 import java.util.*
 
 class JoinRoomFragment : Fragment() {
@@ -59,8 +61,8 @@ class JoinRoomFragment : Fragment() {
             false)
 
         viewModelFactory = JoinRoomViewModelFactory(
-            JoinRoomFragmentArgs.fromBundle
-                (requireArguments()).token)
+            JoinRoomFragmentArgs.fromBundle(requireArguments()).token,
+            JoinRoomFragmentArgs.fromBundle(requireArguments()).usernamePlayer)
         viewModel = ViewModelProvider(this, viewModelFactory)[JoinRoomViewModel::class.java]
 
         roomRecyclerView = binding.roomRecyclerView
@@ -83,7 +85,8 @@ class JoinRoomFragment : Fragment() {
 
                 Log.i("JoinRoomFragment", "Pulled available rooms")
 
-                adapter = RoomAdapter(viewModel.roomList, viewModel.token, this)
+                adapter = RoomAdapter(viewModel.roomList, viewModel.token, this,
+                    viewModel.usernamePlayer)
                 roomRecyclerView.adapter = adapter
                 viewModel.roomDataGot()
             }
@@ -104,6 +107,14 @@ class JoinRoomFragment : Fragment() {
 
         binding.textViewPreferences.setOnClickListener {
             setPreferences(it, dialog)
+        }
+
+        // player icon action
+        // transition to player fragment
+        binding.playerIcon.setOnClickListener {
+            val action = JoinRoomFragmentDirections
+                .actionJoinRoomFragmentToPlayerFragment(viewModel.usernamePlayer, viewModel.token)
+            NavHostFragment.findNavController(this).navigate(action)
         }
 
         binding.joinRoomConstraintLayout.setOnClickListener {

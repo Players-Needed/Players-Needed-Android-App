@@ -17,7 +17,7 @@ import org.json.JSONObject
 import ro.pub.acs.playersneeded.api.PlayersNeededApi
 import kotlin.properties.Delegates
 
-class CreateRoomViewModel(tokenArgument: String) : ViewModel() {
+class CreateRoomViewModel(tokenArgument: String, usernameArg: String) : ViewModel() {
     private var _roomId = -1
     val roomId: Int
         get() = _roomId
@@ -25,6 +25,10 @@ class CreateRoomViewModel(tokenArgument: String) : ViewModel() {
     private var _token = tokenArgument
     val token: String
         get() = _token
+
+    private var _usernamePlayer = usernameArg
+    val usernamePlayer: String
+        get() = _usernamePlayer
 
     private var _roomName = MutableLiveData<String>()
     val roomName: MutableLiveData<String>
