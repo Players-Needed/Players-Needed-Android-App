@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import ro.pub.acs.playersneeded.R
 import ro.pub.acs.playersneeded.joinroom.JoinRoomFragmentDirections
 
-/*
+/**
 * This class is used to create entries that are displayed
 * inside the PlayerRecyclerView in the Players Menu of the
 * Room Screen
-* */
+*/
 class PlayerAdapter(
     private val playerList: Array<Player>,
     private val token: String,

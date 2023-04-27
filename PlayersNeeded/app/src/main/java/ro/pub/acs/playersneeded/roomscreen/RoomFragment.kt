@@ -1,5 +1,8 @@
 package ro.pub.acs.playersneeded.roomscreen
 
+import android.annotation.SuppressLint
+import android.util.Log
+import android.os.Build
 import android.os.Bundle
 import android.os.StrictMode
 import android.preference.PreferenceManager
@@ -7,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -16,11 +20,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import okhttp3.*
+import org.json.JSONObject
 import org.osmdroid.config.Configuration
 import ro.pub.acs.playersneeded.R
+import ro.pub.acs.playersneeded.chat.MessageListAdapter
 import ro.pub.acs.playersneeded.databinding.FragmentRoomBinding
 import ro.pub.acs.playersneeded.player.PlayerAdapter
-import ro.pub.acs.playersneeded.roomcreation.CreateRoomFragmentDirections
+import java.time.Instant
+import java.time.format.DateTimeFormatter
 
 /**
  * Class used to reflect the room fragment, the screen that
@@ -30,8 +38,52 @@ class RoomFragment : Fragment() {
     private lateinit var viewModel: RoomViewModel
     private lateinit var viewModelFactory: RoomViewModelFactory
     private lateinit var binding: FragmentRoomBinding
+
     private lateinit var playerRecyclerView: RecyclerView
     private lateinit var adapter: RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>
+
+    private lateinit var messageRecyclerView : RecyclerView
+    private lateinit var adapterChat: RecyclerView.Adapter<RecyclerView.ViewHolder>
+
+    private val listener = object: WebSocketListener() {
+        override fun onMessage(
+            webSocket: WebSocket, text: String) {
+            super.onMessage(webSocket, text)
+            // Do something when you get the server message
+            val jsonObj = JSONObject(text)
+            val type = jsonObj.getString("type")
+
+            view?.post {
+                if (type == "chat_message_echo") {
+                    val user = jsonObj.getString("name")
+                    if (user != viewModel.usernamePlayer) {
+                        viewModel.addMessage(text)
+                        adapterChat =
+                            MessageListAdapter(viewModel.messageList, viewModel.usernamePlayer)
+                        messageRecyclerView.adapter = adapterChat
+                    }
+                } else {
+                    viewModel.addMessages(text)
+                    (messageRecyclerView.adapter as MessageListAdapter).messageList =
+                        viewModel.messageList
+                }
+            }
+        }
+
+        override fun onClosing(
+            webSocket: WebSocket, code: Int, reason: String) {
+            super.onClosed(webSocket, code, reason)
+            // Do something when the connection is closing
+        }
+
+        override fun onFailure(
+            webSocket: WebSocket, t: Throwable, response: Response?) {
+            super.onFailure(webSocket, t, response)
+            // Do something when the connection fail (e.g. server stop)
+        }
+    }
+
+    private lateinit var webSocket: WebSocket
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +116,13 @@ class RoomFragment : Fragment() {
         playerRecyclerView.layoutManager = LinearLayoutManager(context)
         playerRecyclerView.setHasFixedSize(true)
 
+        // set up the chat recycler view
+        messageRecyclerView = binding.recyclerGchat
+        messageRecyclerView.layoutManager = LinearLayoutManager(context)
+        messageRecyclerView.setHasFixedSize(true)
+
         // introduce spacing between elements of recycler view
+        // only for the player recycler view
         val dividerItemDecoration =
             DividerItemDecoration(playerRecyclerView.context, DividerItemDecoration.VERTICAL)
         dividerItemDecoration.setDrawable(
@@ -83,7 +141,11 @@ class RoomFragment : Fragment() {
 
         // Go back arrow action
         binding.imageViewbackArrow.setOnClickListener {
-            findNavController().popBackStack()
+            webSocket.cancel()
+            val action =
+                RoomFragmentDirections.actionRoomFragmentToYourRoomsFragment(viewModel.token,
+                    viewModel.usernamePlayer)
+            NavHostFragment.findNavController(this).navigate(action)
         }
 
         // Hide keyboard when clicking anywhere on the layout
@@ -91,15 +153,34 @@ class RoomFragment : Fragment() {
             hideSoftKeyboard(it)
         }
 
+        // Send message in chat
+        binding.buttonGchatSend.setOnClickListener {
+            sendJsonMessage(binding.editGchatMessage.text.toString())
+        }
+
         // track the result of the GET request for room info
         viewModel.getDetailsResult.observe(viewLifecycleOwner) {
             if (it) {
                 setRoomDetails()
                 setPlayerAdapter()
+                setChatAdapter()
                 viewModel.reinitializeDetailsResult()
+
+                // Create the websocket
+                val client = OkHttpClient()
+                val request: Request =
+                    Request.Builder()
+                        .url("ws://10.0.2.2:8000/ws_chat/" + viewModel.roomName.value + "-" +
+                                viewModel.idRoom + "?token=" + viewModel.token)
+                        .build()
+                webSocket = client.newWebSocket(request, listener)
+
+                Log.i("RoomFragment", "log1 ")
 
                 // perform the request that gets info about the player logged in
                 viewModel.getSelfPlayer()
+
+                Log.i("RoomFragment", "log2 ")
             }
         }
 
@@ -132,6 +213,7 @@ class RoomFragment : Fragment() {
         // track the result of the DELETE request for deleting a players room
         viewModel.deleteRoomResult.observe(viewLifecycleOwner) {
             if (it) {
+                webSocket.cancel()
                 val action =
                     RoomFragmentDirections.actionRoomFragmentToYourRoomsFragment(viewModel.token,
                         viewModel.usernamePlayer)
@@ -185,6 +267,26 @@ class RoomFragment : Fragment() {
     }
 
     /**
+     * Function that sends a message in the chat
+     */
+    private fun sendJsonMessage(message: String) {
+        val jsonObject = JSONObject()
+        jsonObject.put("type", "chat_message")
+        jsonObject.put("message", message)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            jsonObject.put("timestamp",
+                DateTimeFormatter.ISO_INSTANT.format(Instant.now()).toString())
+        }
+        jsonObject.put("name", viewModel.usernamePlayer)
+
+        viewModel.addMessage(jsonObject.toString())
+        adapterChat = MessageListAdapter(viewModel.messageList, viewModel.usernamePlayer)
+        messageRecyclerView.adapter = adapterChat
+
+        webSocket.send(jsonObject.toString())
+    }
+
+    /**
      * Function that sets the content of the recycler view when
      * the room detail GET request succeeds
      */
@@ -192,6 +294,15 @@ class RoomFragment : Fragment() {
         adapter = PlayerAdapter(viewModel.playersList, viewModel.token, this,
             viewModel.usernamePlayer)
         playerRecyclerView.adapter = adapter
+    }
+
+    /**
+     * Function that sets the content of the Chat recycler view
+     * when the room detail GET request succeeds
+     */
+    private fun setChatAdapter() {
+        adapterChat = MessageListAdapter(viewModel.messageList, viewModel.usernamePlayer)
+        messageRecyclerView.adapter = adapterChat
     }
 
     /**
