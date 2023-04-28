@@ -97,6 +97,8 @@
     <string name="exitButton">Exit</string>
     <string name="editButton">Edit</string>
     <string name="deleteButton">Delete</string>
+    <string name="sendButton">Send</string>
+    <string name="yourMessage">Your Message</string>
 
     <!-- Player View -->
     <string name="dummyPlayerImage">Dummy Player Image</string>
@@ -121,4 +123,11 @@
     <string name="oldPassword">Old Password</string>
     <string name="newPassword">New Password</string>
     <string name="confirmNewPassword">Confirm New Password</string>
+    <string name="dummyDate">June 10</string>
+    <string name="enterMessage">Enter Message</string>
+    <string name="sendMessage">Send</string>
+    <string name="messageTime">10:00</string>
+    <string name="dummyMessage">This is a Message</string>
+    <string name="userIcon">User Icon</string>
+    <string name="dummyName">John Grady Cole</string>
 </resources>

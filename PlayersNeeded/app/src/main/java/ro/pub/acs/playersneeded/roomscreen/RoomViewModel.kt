@@ -12,6 +12,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import ro.pub.acs.playersneeded.api.PlayersNeededApi
+import ro.pub.acs.playersneeded.chat.Message
+import ro.pub.acs.playersneeded.chat.MessageListAdapter
 import ro.pub.acs.playersneeded.player.Player
 
 /**
@@ -20,6 +22,7 @@ import ro.pub.acs.playersneeded.player.Player
  */
 class RoomViewModel(tokenArgument: String, idArgument: Int, usernameArg: String) : ViewModel() {
     lateinit var playersList : Array<Player>
+    var messageList : Array<Message> = arrayOf()
 
     private var _token = tokenArgument
     val token: String
@@ -359,6 +362,70 @@ class RoomViewModel(tokenArgument: String, idArgument: Int, usernameArg: String)
             }
         }
         return false
+    }
+
+    /**
+     * Function that adds the messages that were already
+     * in the chat in the message list
+     */
+    fun addMessages(messageJson: String) {
+        Log.i("RoomViewModel", messageJson)
+
+        val jsonObj = JSONObject(messageJson)
+        val type = jsonObj.getString("type")
+
+//        if (type == "chat_message_echo" && jsonObj.getString("name") != usernamePlayer) {
+//            addMessage(messageJson)
+//        } else
+        if (type == "welcome_message") {
+            val jsonArray = jsonObj.getJSONArray("messages")
+            var jsonMessage: JSONObject
+
+            for (i in 0 until jsonArray.length()) {
+                jsonMessage = jsonArray.getJSONObject(i)
+
+                val timestamp = jsonMessage.getString("timestamp")
+                val date = timestamp.subSequence(0, 10)
+                val time = timestamp.subSequence(11, 16)
+
+                val messageObj = Message(
+                    jsonMessage.getString("message"),
+                    date as String, time as String,
+                    jsonMessage.getString("name"), false
+                )
+
+                if (messageList.size - 1 > 0 && date == messageList[messageList.size - 1].date) {
+                    messageObj.today = true
+                }
+
+                messageList += messageObj
+            }
+        }
+    }
+
+    /**
+     * Function that adds a message in the message list
+     */
+    fun addMessage(messageJson: String) {
+        Log.i("RoomViewModel", messageJson)
+
+        val jsonObj = JSONObject(messageJson)
+
+        val timestamp = jsonObj.getString("timestamp")
+        val date = timestamp.subSequence(0, 10)
+        val time = timestamp.subSequence(11, 16)
+
+        val messageObj = Message(
+            jsonObj.getString("message"),
+            date as String, time as String,
+            jsonObj.getString("name"), false
+        )
+
+        if (messageList.size - 1 > 0 && date == messageList[messageList.size - 1].date) {
+            messageObj.today = true
+        }
+
+        messageList += messageObj
     }
 
     /* reinitialization functions */

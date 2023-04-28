@@ -351,6 +351,7 @@ class CreateRoomFragment : Fragment() {
     private fun setTime(view: View, hour: Int, minute: Int) {
         var text: String
 
+        // TODO - this has been modified by Theo -- need to check it again
         val timePickerDialog = TimePickerDialog(
             context,
             { _, hourOfDay, minuteOfHour ->
@@ -366,7 +367,11 @@ class CreateRoomFragment : Fragment() {
                     } else {
                         minuteOfHour.toString()
                     }
-                    binding.textViewTime.text = "$text:00"
+                    if (hourOfDay > 11) {
+                        binding.textViewTime.text = "$text:00 PM"
+                    } else {
+                        binding.textViewTime.text = "$text:00 AM"
+                    }
                 }
             },
             hour,
