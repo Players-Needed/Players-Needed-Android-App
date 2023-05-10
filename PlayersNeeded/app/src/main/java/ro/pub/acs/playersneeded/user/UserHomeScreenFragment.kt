@@ -40,8 +40,9 @@ class UserHomeScreenFragment : Fragment() {
             inflater, R.layout.fragment_user_home_screen, container,
             false)
 
-        // display the available news for a certain user
-        displayNews()
+        viewModelFactory = UserHomeScreenViewModelFactory(UserHomeScreenFragmentArgs.fromBundle
+            (requireArguments()).token)
+        viewModel = ViewModelProvider(this, viewModelFactory)[UserHomeScreenViewModel::class.java]
 
         // get data about the current user
         viewModel.getSelfPlayer()
@@ -55,12 +56,6 @@ class UserHomeScreenFragment : Fragment() {
      * and display them using a recycler view
      */
     private fun displayNews() {
-        // TODO fetch the news from an API
-
-        viewModelFactory = UserHomeScreenViewModelFactory(UserHomeScreenFragmentArgs.fromBundle
-            (requireArguments()).token)
-        viewModel = ViewModelProvider(this, viewModelFactory)[UserHomeScreenViewModel::class.java]
-
         newsRecyclerView = binding.newsRecyclerView
         newsRecyclerView.layoutManager = LinearLayoutManager(context)
         newsRecyclerView.setHasFixedSize(true)
@@ -76,7 +71,7 @@ class UserHomeScreenFragment : Fragment() {
         )
         newsRecyclerView.addItemDecoration(dividerItemDecoration)
 
-        adapter = NewsAdapter(viewModel.newsList)
+        adapter = NewsAdapter(requireContext(), viewModel.newsList)
         newsRecyclerView.adapter = adapter
     }
 
@@ -114,6 +109,16 @@ class UserHomeScreenFragment : Fragment() {
                             viewModel.usernamePlayer.value!!, viewModel.token)
                     NavHostFragment.findNavController(this).navigate(action)
                 }
+
+                viewModel.getNews()
+            }
+        }
+
+        viewModel.getNewsResult.observe(viewLifecycleOwner) {
+            if (it) {
+                // display the available news for a certain user
+                displayNews()
+                viewModel.reinitializeGetNewsResult()
             }
         }
 

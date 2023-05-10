@@ -6,22 +6,19 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.http.*
 
-private const val BASE_URL = "http://0.0.0.0:8000"
+private const val BASE_URL = "http://10.0.2.2:6000"
 
 private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .build()
 
 interface NewsRecommenderApiService {
-    @POST("/api/recommender/news")
-    suspend fun login(@Body requestBody: RequestBody) : Response<ResponseBody>
+    @POST("/api/recommender/behaviors")
+    suspend fun sendBehaviors(@Body requestBody: RequestBody) : Response<ResponseBody>
 
     @GET("/api/recommender/news")
-    suspend fun register(@Body requestBody: RequestBody) : Response<ResponseBody>
-
-    @DELETE("/api/recommender/news")
-    suspend fun logout(@HeaderMap headers: Map<String, String>) : Response<ResponseBody>
-
+    suspend fun getNews(@QueryMap params: Map<String, String>) :
+            Response<ResponseBody>
 
 }
 
