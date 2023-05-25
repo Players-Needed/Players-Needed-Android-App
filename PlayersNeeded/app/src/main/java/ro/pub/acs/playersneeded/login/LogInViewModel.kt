@@ -14,8 +14,9 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import ro.pub.acs.playersneeded.api.PlayersNeededApi
+import ro.pub.acs.playersneeded.metrics.MetricsSending
 
-class LogInViewModel : ViewModel() {
+class LogInViewModel : ViewModel(), MetricsSending {
 
     private var _logInResult = MutableLiveData<Boolean>()
     val logInResult: LiveData<Boolean>
@@ -64,6 +65,7 @@ class LogInViewModel : ViewModel() {
                 }
             }
         }
+        sendMetric("tx_bytes")
     }
 
     fun reinitialize() {

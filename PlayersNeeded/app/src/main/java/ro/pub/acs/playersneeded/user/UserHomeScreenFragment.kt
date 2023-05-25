@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ro.pub.acs.playersneeded.R
 import ro.pub.acs.playersneeded.databinding.FragmentUserHomeScreenBinding
+import ro.pub.acs.playersneeded.metrics.MetricsSending
 import ro.pub.acs.playersneeded.news.NewsAdapter
 import ro.pub.acs.playersneeded.roomscreen.RoomFragmentDirections
 
@@ -24,7 +25,7 @@ import ro.pub.acs.playersneeded.roomscreen.RoomFragmentDirections
  * already logged in, or for a user that has just signed up or
  * logged in.
  */
-class UserHomeScreenFragment : Fragment() {
+class UserHomeScreenFragment : Fragment(), MetricsSending {
     private lateinit var viewModel: UserHomeScreenViewModel
     private lateinit var viewModelFactory: UserHomeScreenViewModelFactory
     private lateinit var binding: FragmentUserHomeScreenBinding
@@ -137,6 +138,10 @@ class UserHomeScreenFragment : Fragment() {
                 .actionUserHomeScreenFragmentToYourRoomsFragment(viewModel.token,
                     viewModel.usernamePlayer.value!!)
         NavHostFragment.findNavController(this).navigate(action)
+
+        sendMetric("available_memory")
+        sendMetric("total_memory")
+        sendMetric("free_memory")
     }
 
     private fun joinRoom() {

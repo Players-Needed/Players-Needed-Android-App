@@ -14,10 +14,11 @@ import org.json.JSONArray
 import org.json.JSONObject
 import ro.pub.acs.playersneeded.api.NewsRecommenderApi
 import ro.pub.acs.playersneeded.api.PlayersNeededApi
+import ro.pub.acs.playersneeded.metrics.MetricsSending
 import ro.pub.acs.playersneeded.news.News
 import ro.pub.acs.playersneeded.room.Room
 
-class UserHomeScreenViewModel(tokenArgument: String) : ViewModel() {
+class UserHomeScreenViewModel(tokenArgument: String) : ViewModel(), MetricsSending {
     lateinit var newsList : Array<News>
 
     private var _token = tokenArgument
@@ -84,6 +85,7 @@ class UserHomeScreenViewModel(tokenArgument: String) : ViewModel() {
                 }
             }
         }
+        sendMetric("rx_bytes")
     }
 
     /**
@@ -123,6 +125,7 @@ class UserHomeScreenViewModel(tokenArgument: String) : ViewModel() {
                 }
             }
         }
+        sendMetric("rx_bytes")
     }
 
     /**
