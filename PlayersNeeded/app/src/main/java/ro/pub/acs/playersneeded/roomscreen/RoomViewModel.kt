@@ -152,7 +152,7 @@ class RoomViewModel(tokenArgument: String, idArgument: Int, usernameArg: String)
      * Function that extracts the list of players from the room
      * and populates the player list variable
      */
-    private fun populatePlayerList(prettyJson: String?) {
+    fun populatePlayerList(prettyJson: String?) {
         val jsonObj = prettyJson?.let { JSONObject(it) }
 
         var id: Int
@@ -184,7 +184,7 @@ class RoomViewModel(tokenArgument: String, idArgument: Int, usernameArg: String)
     /**
      * Function that sets room details according to the server response
      */
-    private fun setDetails(prettyJson: String?) {
+    fun setDetails(prettyJson: String?) {
         val jsonObj = prettyJson?.let { JSONObject(it) }
 
         if (jsonObj != null) {

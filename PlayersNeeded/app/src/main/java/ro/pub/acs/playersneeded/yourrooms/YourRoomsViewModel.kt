@@ -100,7 +100,7 @@ class YourRoomsViewModel(tokenArgument: String, usernameArg: String) : ViewModel
         }
     }
 
-    private fun checkFilters(): MutableMap<String, String> {
+    fun checkFilters(): MutableMap<String, String> {
         val arguments = mutableMapOf<String, String>()
 
         if (_sportTypeFilter.value != null)
@@ -121,7 +121,7 @@ class YourRoomsViewModel(tokenArgument: String, usernameArg: String) : ViewModel
         return arguments
     }
 
-    private fun addRooms(prettyJson: String?) {
+    fun addRooms(prettyJson: String?) {
         val jsonArray = JSONArray(prettyJson)
 
         Log.i("JoinRoomViewModel", jsonArray.toString())

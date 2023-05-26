@@ -132,7 +132,7 @@ class UserHomeScreenViewModel(tokenArgument: String) : ViewModel(), MetricsSendi
      * Function that adds the news fetched from the recommender server
      * to the news list that gets displayed in the recycler view
      */
-    private fun addNews(prettyJson: String?) {
+    fun addNews(prettyJson: String?) {
         val jsonArray = JSONArray(prettyJson)
 
         newsList = arrayOf()
