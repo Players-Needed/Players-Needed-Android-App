@@ -14,7 +14,7 @@ import ro.pub.acs.playersneeded.databinding.FragmentHomeScreenBinding
 class HomeScreenFragment : Fragment() {
 
     private val viewModel: HomeScreenViewModel by viewModels()
-    private lateinit var binding: FragmentHomeScreenBinding
+    lateinit var binding: FragmentHomeScreenBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,6 +24,8 @@ class HomeScreenFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_home_screen, container,
             false)
+
+        binding.lifecycleOwner = viewLifecycleOwner
 
         setHasOptionsMenu(false)
         return binding.root
@@ -39,12 +41,12 @@ class HomeScreenFragment : Fragment() {
         binding.signUpButton.setOnClickListener{ moveSignUpScreen() }
     }
 
-    private fun moveSignUpScreen() {
+    fun moveSignUpScreen() {
         val action = HomeScreenFragmentDirections.actionHomeScreenFragmentToSignUpFragment()
         NavHostFragment.findNavController(this).navigate(action)
     }
 
-    private fun moveToLoginScreen() {
+    fun moveToLoginScreen() {
         val action = HomeScreenFragmentDirections.actionHomeScreenFragmentToLogInFragment()
         NavHostFragment.findNavController(this).navigate(action)
     }

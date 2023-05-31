@@ -126,6 +126,8 @@ class CreateRoomFragment : Fragment() {
 
         binding.spinnerSkillLevel.adapter = adapterSkill
 
+//        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
         setHasOptionsMenu(false)
         return binding.root
     }
